@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1089342391549",
+    "firebase_url": "https://remeber-hi.firebaseio.com",
+    "project_id": "remeber-hi",
+    "storage_bucket": "remeber-hi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089342391549:android:044c73e507e72a77",
+        "android_client_info": {
+          "package_name": "com.example.sy.a2018rememberhi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089342391549-dcvc0k1pdaflils89jj4i4u3jr8nf571.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyTbgJfUmzAaM4L0BHy5Xw83fY_1V3RQA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
