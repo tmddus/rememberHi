@@ -10,14 +10,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
+    FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference("message");
-        databaseReference.setValue("Hello, World!");
+        database = FirebaseDatabase.getInstance();
+
         Button signUpBtn = findViewById(R.id.start_signUp);
         Button signInBtn = findViewById(R.id.start_login);
 
