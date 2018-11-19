@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,9 +24,10 @@ public class SignupActivity extends AppCompatActivity {
     DatabaseReference muserRef = mRootRef.child("user");
 
     EditText idtxt, pwdtxt, pwdtxt2, name, phone2, phone3;
-    ArrayAdapter spinnerAdapter;
-    Spinner spinner_age , spinner_phone1;
+    ArrayAdapter spinnerAdapter, phoneSpinnerAdapter;
+    Spinner spinner_age , spinner_phonenum;
 
+    int age_result, phonenum;
 
 
     @Override
@@ -35,32 +37,56 @@ public class SignupActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
-        pwdtxt2 = findViewById(R.id.pwdtxt2);
+        pwdtxt2 = findViewById(R.id.pwdtxtConfirm);
         name = findViewById(R.id.name);
         spinner_age = findViewById(R.id.age);
-        spinner_phone1 = findViewById(R.id.phone1);
+        spinner_phonenum = findViewById(R.id.phonenum_spinner);
         phone2 = findViewById(R.id.phone2);
         phone3 = findViewById(R.id.phone3);
         final ArrayList<Integer> age = new ArrayList<>();
-        for(int i = 60; i < 100; i++){
+        final ArrayList<String> phone = new ArrayList<>();
+
+        for(int i = 1; i < 100; i++){
             age.add(i);
         }
+
+        phone.add("010");
+        phone.add("011");
+        phone.add("017");
+
+
+        phoneSpinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, phone);
+        spinner_phonenum.setAdapter(phoneSpinnerAdapter);
 
         spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, age);
         spinner_age.setAdapter(spinnerAdapter);
 
-        spinner_age.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        final Spinner spinner = (Spinner)findViewById(R.id.age);
+        String age_str = spinner.getSelectedItem().toString();
 
-            }
-        });
-        spinner_phone1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+       spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               age_result = (int)spinner_age.getItemAtPosition(position);
+           }
 
-            }
-        });
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+
+           }
+       });
+
+       spinner_phonenum.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               phonenum = (int)spinner_phonenum.getItemAtPosition(position);
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+
+           }
+       });
 
 
     }
@@ -77,7 +103,6 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String text = dataSnapshot.getValue(String.class);
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
