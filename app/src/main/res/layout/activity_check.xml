@@ -29,15 +29,27 @@
         android:layout_height="362dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="18dp"
+        android:orientation="vertical"
         android:background="#f7f7f7">
 
+        <ListView
+            android:id="@+id/checkList"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+
+        </ListView>
+
+        <!--
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="346dp"
             android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:choiceMode="multipleChoice">
 
             <CheckBox
+
                 android:id="@+id/check1"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
@@ -72,12 +84,11 @@
                 android:checked="false"
                 android:text="나는 건망증이 심한 것 같다"
                 android:textSize="18dp" />
-
+-->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="30pt"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="30dp"
+                android:layout_gravity="bottom"
                 android:orientation="horizontal">
 
                 <Button
@@ -106,6 +117,6 @@
                     android:visibility="invisible" />
 
             </FrameLayout>
+
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
