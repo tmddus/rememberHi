@@ -67,7 +67,7 @@
                     android:inputType="textPassword" />
 
                 <EditText
-                    android:id="@+id/pwdtxt2"
+                    android:id="@+id/pwdtxtConfirm"
                     android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -110,6 +110,7 @@
                         android:layout_width="165dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -127,6 +128,7 @@
                         android:textSize="18dp" />
 
                     <RadioGroup
+                        android:id="@+id/rg_gender"
                         android:layout_width="185dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
@@ -202,16 +204,20 @@
                         android:text="보호자 번호"
                         android:textSize="18dp" />
                     <Spinner
+                        android:id="@+id/phonenum_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:entries="@array/phone"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" - "
                         android:layout_gravity="center_vertical"/>
                     <EditText
+                        android:inputType="number"
+                        android:id="@+id/phone2"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -222,6 +228,8 @@
                         android:text=" - "
                         android:layout_gravity="center_vertical"/>
                     <EditText
+                        android:inputType="number"
+                        android:id="@+id/phone3"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -244,3 +252,5 @@
 
 
 </LinearLayout>
+
+
