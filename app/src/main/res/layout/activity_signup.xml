@@ -112,6 +112,7 @@
                         android:layout_width="165dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -165,16 +166,19 @@
                         android:text="전화번호"
                         android:textSize="18dp" />
                     <Spinner
+                        android:id="@+id/phone1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_gravity="center_vertical"/>
+                        android:layout_gravity="center_vertical"
+                        android:entries="@array/phone"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" - "
                         android:layout_gravity="center_vertical"/>
                     <EditText
+                        android:id="@+id/phone2"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -185,6 +189,7 @@
                         android:text=" - "
                         android:layout_gravity="center_vertical"/>
                     <EditText
+                        android:id="@+id/phone3"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -208,3 +213,5 @@
 
 
 </LinearLayout>
+
+
