@@ -21,24 +21,24 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class SignupActivity extends AppCompatActivity {
-    FirebaseDatabase database;
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference muserRef = mRootRef.child("user");
+    //FirebaseDatabase database;
+    //DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+   // DatabaseReference muserRef = mRootRef.child("user");
 
     EditText idtxt, pwdtxt, pwdtxt2, name, Userphone2, Userphone3;
     ArrayAdapter spinnerAdapter, phoneSpinnerAdapter_user;
-    Spinner spinner_age , spinner_phonenum_user;
+    Spinner spinner_age, spinner_phonenum_user;
     String gender_str;
     int age_result, gender;
-    String UserPhoneNum="";
-
+    String UserPhoneNum = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        database = FirebaseDatabase.getInstance();
+
+        //database = FirebaseDatabase.getInstance();
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
         pwdtxt2 = findViewById(R.id.pwdtxtConfirm);
@@ -47,6 +47,7 @@ public class SignupActivity extends AppCompatActivity {
         spinner_phonenum_user = findViewById(R.id.phonenum_spinner);
         Userphone2 = findViewById(R.id.phone2);
         Userphone3 = findViewById(R.id.phone3);
+
         final ArrayList<Integer> age = new ArrayList<>();
         final ArrayList<String> phone = new ArrayList<>();
 
@@ -55,13 +56,17 @@ public class SignupActivity extends AppCompatActivity {
         genderRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                gender_str = ((RadioButton)findViewById(checkedId)).getText().toString();
-                if(gender_str.equals("여성")){gender=1;}//임시
-                else{gender=0;}
+                gender_str = ((RadioButton) findViewById(checkedId)).getText().toString();
+                if (gender_str.equals("여성")) {
+                    gender = 1;
+                }//임시
+                else {
+                    gender = 0;
+                }
             }
         });
 
-        for(int i = 1; i < 100; i++){
+        for (int i = 1; i < 100; i++) {
             age.add(i);
         }
 
@@ -76,19 +81,19 @@ public class SignupActivity extends AppCompatActivity {
         spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, age);
         spinner_age.setAdapter(spinnerAdapter);
 
-        final Spinner spinner = (Spinner)findViewById(R.id.age);
+ //       final Spinner spinner = (Spinner) findViewById(R.id.age);
+/*
+        spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                age_result = (int) spinner_age.getItemAtPosition(position);
+            }
 
-       spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               age_result = (int)spinner_age.getItemAtPosition(position);
-           }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
-
-           }
-       });
+            }
+        });
 
         spinner_phonenum_user.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
            @Override
@@ -114,18 +119,7 @@ public class SignupActivity extends AppCompatActivity {
             database.getReference().child("user").setValue(userDTO);
         }
     };
-    protected void onStart(){
-        super.onStart();
-        muserRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-
+*/
     }
 }

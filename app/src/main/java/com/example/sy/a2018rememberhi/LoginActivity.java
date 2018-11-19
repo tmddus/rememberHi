@@ -8,7 +8,7 @@ import android.widget.EditText;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
-    FirebaseDatabase database;
+   // FirebaseDatabase database;
     EditText inputId, inputPwd;
     Button loginbtn;
 
@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        database = FirebaseDatabase.getInstance();
+       // database = FirebaseDatabase.getInstance();
         inputId = findViewById(R.id.inputId);
         inputPwd = findViewById(R.id.inputPwd);
         loginbtn = findViewById(R.id.loginbtn);
@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     View.OnClickListener bntListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-            UserDTO userDTO = new UserDTO();
+            //UserDTO userDTO = new UserDTO();
             //userDTO.getUserID()
             //database.getReference().child("user").setValue();
         }

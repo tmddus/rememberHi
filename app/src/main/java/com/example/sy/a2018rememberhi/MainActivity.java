@@ -10,13 +10,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseDatabase database;
+   // FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database = FirebaseDatabase.getInstance();
+        //database = FirebaseDatabase.getInstance();
 
         Button signUpBtn = findViewById(R.id.start_signUp);
         Button signInBtn = findViewById(R.id.start_login);
