@@ -3,9 +3,12 @@ package com.example.sy.a2018rememberhi;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,13 +26,13 @@ import java.util.ArrayList;
 public class SignupActivity extends AppCompatActivity {
     FirebaseDatabase database;
 
-    EditText idtxt, pwdtxt, pwdtxt2, name, Userphone2, Userphone3;
+    EditText idtxt, pwdtxt, pwdtxt2, name, Userphone2, Userphone3, Childphone2, Childphone3;
     ArrayAdapter spinnerAdapter, phoneSpinnerAdapter_user;
-    Spinner spinner_age, spinner_phonenum_user;
+    Spinner spinner_age, spinner_phonenum_user, spinner_phonenum_child;
     String gender_str;
     int age_result, gender;
-    String UserPhoneNum = "";
-
+    String UserPhoneNum = "", ChildPhoneNum = "";
+    Button signupBtnOK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,12 @@ public class SignupActivity extends AppCompatActivity {
         name = findViewById(R.id.name);
         spinner_age = findViewById(R.id.age);
         spinner_phonenum_user = findViewById(R.id.phonenum_spinner);
+        spinner_phonenum_child = findViewById(R.id.childPhonenum_spinner);
         Userphone2 = findViewById(R.id.phone2);
         Userphone3 = findViewById(R.id.phone3);
+        Childphone2 = findViewById(R.id.childphone2);
+        Childphone3 = findViewById(R.id.childphone3);
+        signupBtnOK = findViewById(R.id.signup_ok);
 
         final ArrayList<Integer> age = new ArrayList<>();
         final ArrayList<String> phone = new ArrayList<>();
@@ -55,24 +62,21 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 gender_str = ((RadioButton) findViewById(checkedId)).getText().toString();
-                if (gender_str.equals("여성")) {
-                    gender = 1;
-                }//임시
-                else {
-                    gender = 0;
-                }
+                if (gender_str.equals("여성")) {gender = 1;}
+                else {gender = 0;}
             }
         });
-        for (int i = 1; i < 100; i++) {
-            age.add(i);
-        }
+        for (int i = 1; i < 100; i++) { age.add(i); }
         phone.add("010");
         phone.add("011");
+        phone.add("016");
         phone.add("017");
+        phone.add("019");
 
 
         phoneSpinnerAdapter_user = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, phone);
         spinner_phonenum_user.setAdapter(phoneSpinnerAdapter_user);
+        spinner_phonenum_child.setAdapter(phoneSpinnerAdapter_user);
 
         spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, age);
         spinner_age.setAdapter(spinnerAdapter);
@@ -93,27 +97,43 @@ public class SignupActivity extends AppCompatActivity {
         });
 
         spinner_phonenum_user.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               UserPhoneNum = spinner_phonenum_user.getItemAtPosition(position).toString();
-           }
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                UserPhoneNum = spinner_phonenum_user.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
 
-           @Override
-           public void onNothingSelected(AdapterView<?> parent) {
+        spinner_phonenum_child.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ChildPhoneNum = spinner_phonenum_child.getItemAtPosition(position).toString();
+            }
 
-           }
-       });
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }});
 
+
+        signupBtnOK.setOnClickListener(bntListener);
 
     }
     View.OnClickListener bntListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
+
             UserPhoneNum += Userphone2.getText().toString();
             UserPhoneNum += Userphone3.getText().toString();
 
-            //UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString()," ",UserPhoneNum,gender,age_result, 2);
-            //database.getReference().child("user").setValue(userDTO);
+            ChildPhoneNum += Childphone2.getText().toString();
+            ChildPhoneNum += Childphone3.getText().toString();
+            Log.e("User : ",UserPhoneNum);
+            Log.e("Child : " , ChildPhoneNum);
+
+            UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
+            database.getReference().child("user").setValue(userDTO);
+            Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다! 환영합니다 " + name.getText().toString() + "님.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     };
 
