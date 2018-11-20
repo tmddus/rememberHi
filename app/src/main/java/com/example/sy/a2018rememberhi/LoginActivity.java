@@ -1,5 +1,6 @@
 package com.example.sy.a2018rememberhi;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +33,6 @@ public class LoginActivity extends AppCompatActivity {
        inputPwd = findViewById(R.id.inputPwd);
        loginbtn = findViewById(R.id.loginbtn);
 
-
-
         loginbtn.setOnClickListener(btnlistener);
     }
    View.OnClickListener btnlistener = new View.OnClickListener() {
@@ -49,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
                        finish();
                    }
                    Toast.makeText(getApplicationContext(), "로그인 성공 ", Toast.LENGTH_SHORT).show();
+
+                   Intent intent = new Intent(LoginActivity.this, CheckActivity.class);
+                   startActivity(intent);
                    finish();
                }
                @Override
