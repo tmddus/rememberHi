@@ -54,6 +54,7 @@
                 android:layout_marginTop="15dp"
                 android:hint="아이디를 입력해주세요"/>
             <EditText
+                android:inputType="textPassword"
                 android:id="@+id/inputPwd"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
