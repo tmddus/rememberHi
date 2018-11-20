@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,21 +9,19 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="30dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="28dp"
-            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
             android:text="회원가입"
             android:textColor="#000000"
-            android:textSize="43dp"
+            android:textSize="48dp"
             android:textStyle="bold" />
         <ImageView
             android:id="@+id/quesbtn1"
@@ -30,7 +29,7 @@
             android:layout_height="30dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:background="@drawable/quespopup"
             />
     </LinearLayout>
@@ -38,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="#ffffff"
         android:orientation="vertical">
 
@@ -97,7 +96,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -118,7 +117,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -157,7 +156,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -170,16 +169,16 @@
                         android:id="@+id/phonenum_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_gravity="center_vertical"
-                        android:entries="@array/phone"/>
+                        android:entries="@array/phone"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" - "
                         android:layout_gravity="center_vertical"/>
                     <EditText
-                        android:inputType="number"
                         android:id="@+id/phone2"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
@@ -191,7 +190,6 @@
                         android:text=" - "
                         android:layout_gravity="center_vertical"/>
                     <EditText
-                        android:inputType="number"
                         android:id="@+id/phone3"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
@@ -199,22 +197,66 @@
                         android:background="#ffffff"/>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="보호자 번호"
+                        android:textSize="18dp" />
+                    <Spinner
+                        android:id="@+id/childPhonenum_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:entries="@array/phone"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:layout_gravity="center_vertical"/>
+                    <EditText
+                        android:inputType="number"
+                        android:id="@+id/childphone2"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="#ffffff"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:layout_gravity="center_vertical"/>
+                    <EditText
+                        android:inputType="number"
+                        android:id="@+id/childphone3"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="#ffffff"/>
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
     <Button
+<<<<<<< HEAD
         android:id="@+id/signupOK"
+=======
+        android:id="@+id/signup_ok"
+>>>>>>> 062b48c9f2bf0a3bad333aae7dff927c765579df
         android:layout_width="228dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:text="확인"
         android:textSize="25dp" />
 
 
-
 </LinearLayout>
-
-
