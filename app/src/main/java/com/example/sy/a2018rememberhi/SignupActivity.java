@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,9 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
-    FirebaseDatabase database;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference();
 
     EditText idtxt, pwdtxt, pwdtxt2, name, Userphone2, Userphone3;
     ArrayAdapter spinnerAdapter, phoneSpinnerAdapter_user;
@@ -29,14 +33,15 @@ public class SignupActivity extends AppCompatActivity {
     String gender_str;
     int age_result, gender;
     String UserPhoneNum = "";
-
+    Button SignupOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        database = FirebaseDatabase.getInstance();
+
+
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
         pwdtxt2 = findViewById(R.id.pwdtxtConfirm);
@@ -45,7 +50,7 @@ public class SignupActivity extends AppCompatActivity {
         spinner_phonenum_user = findViewById(R.id.phonenum_spinner);
         Userphone2 = findViewById(R.id.phone2);
         Userphone3 = findViewById(R.id.phone3);
-
+        SignupOk = findViewById(R.id.signupOK);
         final ArrayList<Integer> age = new ArrayList<>();
         final ArrayList<String> phone = new ArrayList<>();
 
@@ -103,18 +108,38 @@ public class SignupActivity extends AppCompatActivity {
 
            }
        });
-
-
+        SignupOk.setOnClickListener(bntListener);
     }
     View.OnClickListener bntListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
             UserPhoneNum += Userphone2.getText().toString();
             UserPhoneNum += Userphone3.getText().toString();
-
-            //UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString()," ",UserPhoneNum,gender,age_result, 2);
+            Toast.makeText(getApplicationContext(), "sfsfsfsfsfsf", Toast.LENGTH_LONG).show();
+            myRef = FirebaseDatabase.getInstance().getReference("User");
+            myRef.push().setValue("ddd");
+            postFirebaseDatabase(true);
             //database.getReference().child("user").setValue(userDTO);
+            //myRef.push().setValue(userDTO);
+
         }
     };
+    public void postFirebaseDatabase(boolean add){
+        try{
+            myRef = FirebaseDatabase.getInstance().getReference();
+            Map<String, Object> childUpdates = new HashMap<>();
+            Map<String, Object> postValues = null;
+            if(add){
+                //UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString()," ",UserPhoneNum,gender,age_result, 2);
+                UserDTO userDTO = new UserDTO("a","a","a","1","1",1,1,1);
+                postValues = userDTO.toMap();
+            }
+            childUpdates.put("/User/" + idtxt.getText().toString(), postValues);
+            myRef.updateChildren(childUpdates);
+        }catch (Exception e){
+            e.fillInStackTrace();
+        }
+
+    }
 
 }

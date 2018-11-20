@@ -1,5 +1,10 @@
 package com.example.sy.a2018rememberhi;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class UserDTO {
 
     private String userName;
@@ -82,7 +87,19 @@ public class UserDTO {
     public void setUserCheckList(int userCheckList) {
         this.userCheckList = userCheckList;
     }
-
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("userName", userName);
+        result.put("userID", userID);
+        result.put("userPWD", userPWD);
+        result.put("userChildPhone", userChildPhone);
+        result.put("userPhone", userPhone);
+        result.put("userGender", userGender);
+        result.put("userBirth", userBirth);
+        result.put("userCheckList", userCheckList);
+        return result;
+    }
 
 
 }

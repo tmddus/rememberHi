@@ -205,11 +205,11 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/signupOK"
         android:layout_width="228dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="@layout/btn_corner"
         android:text="확인"
         android:textSize="25dp" />
 
