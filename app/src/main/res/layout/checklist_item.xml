@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+<<<<<<< HEAD
     android:background="#ffffff"
+=======
+    android:background="#f7f7f7"
+>>>>>>> 1a94a6b969b8b73f93a81cbe0e0e53464f2d3926
     >
     <CheckBox
         android:id="@+id/checkListBox"
