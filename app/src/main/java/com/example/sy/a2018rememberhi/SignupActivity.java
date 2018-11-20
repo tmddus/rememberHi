@@ -10,10 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
+
     EditText idtxt, pwdtxt, pwdtxt2, name, Userphone2, Userphone3, Childphone2, Childphone3;
     ArrayAdapter spinnerAdapter, phoneSpinnerAdapter_user;
     Spinner spinner_age, spinner_phonenum_user, spinner_phonenum_child;
@@ -37,6 +35,7 @@ public class SignupActivity extends AppCompatActivity {
     String UserPhoneNum = "";
     String UserPhoneNumString = "", ChildPhoneNum = "";
     Button signupBtnOK;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +46,10 @@ public class SignupActivity extends AppCompatActivity {
 
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
-        pwdtxt2 = findViewById(R.id.pwdtxtConfirm);
+        pwdtxt2 = findViewById(R.id.pwdtxt2);
         name = findViewById(R.id.name);
         spinner_age = findViewById(R.id.age);
+
         spinner_phonenum_user = findViewById(R.id.phonenum_spinner);
         spinner_phonenum_child = findViewById(R.id.childPhonenum_spinner);
         Userphone2 = findViewById(R.id.phone2);
@@ -83,8 +83,10 @@ public class SignupActivity extends AppCompatActivity {
         spinner_phonenum_user.setAdapter(phoneSpinnerAdapter_user);
         spinner_phonenum_child.setAdapter(phoneSpinnerAdapter_user);
 
+
         spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, age);
         spinner_age.setAdapter(spinnerAdapter);
+
 
 
         final Spinner spinner = (Spinner) findViewById(R.id.age);
@@ -120,12 +122,14 @@ public class SignupActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) { }});
 
 
+
         signupBtnOK.setOnClickListener(bntListener);
 
     }
     View.OnClickListener bntListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
+
 
             UserPhoneNum += Userphone2.getText().toString();
             UserPhoneNum += Userphone3.getText().toString();
@@ -143,6 +147,7 @@ public class SignupActivity extends AppCompatActivity {
             finish();
         }
     };
+
 
     private void writeNewPost() {
         UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
