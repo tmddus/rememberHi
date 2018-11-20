@@ -10,6 +10,5 @@ public class TodayendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todayend);
 
-
     }
 }
