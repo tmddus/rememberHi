@@ -22,16 +22,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
-    FirebaseDatabase database;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference();
 
     EditText idtxt, pwdtxt, pwdtxt2, name, Userphone2, Userphone3, Childphone2, Childphone3;
     ArrayAdapter spinnerAdapter, phoneSpinnerAdapter_user;
     Spinner spinner_age, spinner_phonenum_user, spinner_phonenum_child;
     String gender_str;
     int age_result, gender;
-    String UserPhoneNum = "", ChildPhoneNum = "";
+    String UserPhoneNum = "";
+    String UserPhoneNumString = "", ChildPhoneNum = "";
     Button signupBtnOK;
 
     @Override
@@ -39,7 +43,8 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        database = FirebaseDatabase.getInstance();
+
+
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
         pwdtxt2 = findViewById(R.id.pwdtxtConfirm);
@@ -105,12 +110,12 @@ public class SignupActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
+
         spinner_phonenum_child.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ChildPhoneNum = spinner_phonenum_child.getItemAtPosition(position).toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }});
 
@@ -125,16 +130,25 @@ public class SignupActivity extends AppCompatActivity {
             UserPhoneNum += Userphone2.getText().toString();
             UserPhoneNum += Userphone3.getText().toString();
 
+
             ChildPhoneNum += Childphone2.getText().toString();
             ChildPhoneNum += Childphone3.getText().toString();
             Log.e("User : ",UserPhoneNum);
             Log.e("Child : " , ChildPhoneNum);
 
-            UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
-            database.getReference().child("user").setValue(userDTO);
+            myRef = FirebaseDatabase.getInstance().getReference("User");
+            writeNewPost();
+
             Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다! 환영합니다 " + name.getText().toString() + "님.", Toast.LENGTH_SHORT).show();
             finish();
         }
     };
+
+    private void writeNewPost() {
+        UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
+
+        myRef.child(idtxt.getText().toString()).setValue(userDTO);
+
+    }
 
 }
