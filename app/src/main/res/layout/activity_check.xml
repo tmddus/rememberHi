@@ -29,7 +29,9 @@
         android:layout_height="362dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="18dp"
+        android:orientation="vertical"
         android:background="#f7f7f7">
+
 
        <ListView
            android:id="@+id/checkListView"
@@ -51,6 +53,5 @@
             android:layout_width="150dp"
             android:layout_height="25pt"
             android:layout_gravity="center" />
-
     </FrameLayout>
 </LinearLayout>
