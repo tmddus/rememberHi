@@ -1,7 +1,6 @@
-package com.example.sy.a2018rememberhi;
+package com.example.sy.a2018rememberhi.Activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +10,8 @@ import android.widget.EditText;
 
 import android.widget.Toast;
 
+import com.example.sy.a2018rememberhi.R;
+import com.example.sy.a2018rememberhi.UserDTO;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
