@@ -246,11 +246,7 @@
     </LinearLayout>
 
     <Button
-<<<<<<< HEAD
-        android:id="@+id/signupOK"
-=======
         android:id="@+id/signup_ok"
->>>>>>> 062b48c9f2bf0a3bad333aae7dff927c765579df
         android:layout_width="228dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"

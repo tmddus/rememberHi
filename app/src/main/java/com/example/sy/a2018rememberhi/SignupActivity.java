@@ -34,13 +34,9 @@ public class SignupActivity extends AppCompatActivity {
     Spinner spinner_age, spinner_phonenum_user, spinner_phonenum_child;
     String gender_str;
     int age_result, gender;
-<<<<<<< HEAD
     String UserPhoneNum = "";
-    Button SignupOk;
-=======
-    String UserPhoneNum = "", ChildPhoneNum = "";
+    String UserPhoneNumString = "", ChildPhoneNum = "";
     Button signupBtnOK;
->>>>>>> 062b48c9f2bf0a3bad333aae7dff927c765579df
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +54,10 @@ public class SignupActivity extends AppCompatActivity {
         spinner_phonenum_child = findViewById(R.id.childPhonenum_spinner);
         Userphone2 = findViewById(R.id.phone2);
         Userphone3 = findViewById(R.id.phone3);
-<<<<<<< HEAD
-        SignupOk = findViewById(R.id.signupOK);
-=======
         Childphone2 = findViewById(R.id.childphone2);
         Childphone3 = findViewById(R.id.childphone3);
         signupBtnOK = findViewById(R.id.signup_ok);
 
->>>>>>> 062b48c9f2bf0a3bad333aae7dff927c765579df
         final ArrayList<Integer> age = new ArrayList<>();
         final ArrayList<String> phone = new ArrayList<>();
 
@@ -118,24 +110,18 @@ public class SignupActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
+
         spinner_phonenum_child.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ChildPhoneNum = spinner_phonenum_child.getItemAtPosition(position).toString();
             }
-
-<<<<<<< HEAD
-           }
-       });
-        SignupOk.setOnClickListener(bntListener);
-=======
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }});
 
 
         signupBtnOK.setOnClickListener(bntListener);
 
->>>>>>> 062b48c9f2bf0a3bad333aae7dff927c765579df
     }
     View.OnClickListener bntListener = new View.OnClickListener(){
         @Override
@@ -143,43 +129,25 @@ public class SignupActivity extends AppCompatActivity {
 
             UserPhoneNum += Userphone2.getText().toString();
             UserPhoneNum += Userphone3.getText().toString();
-<<<<<<< HEAD
-            Toast.makeText(getApplicationContext(), "sfsfsfsfsfsf", Toast.LENGTH_LONG).show();
-            myRef = FirebaseDatabase.getInstance().getReference("User");
-            myRef.push().setValue("ddd");
-            postFirebaseDatabase(true);
-            //database.getReference().child("user").setValue(userDTO);
-            //myRef.push().setValue(userDTO);
 
-=======
 
             ChildPhoneNum += Childphone2.getText().toString();
             ChildPhoneNum += Childphone3.getText().toString();
             Log.e("User : ",UserPhoneNum);
             Log.e("Child : " , ChildPhoneNum);
 
-            UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
-            database.getReference().child("user").setValue(userDTO);
+            myRef = FirebaseDatabase.getInstance().getReference("User");
+            writeNewPost();
+
             Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다! 환영합니다 " + name.getText().toString() + "님.", Toast.LENGTH_SHORT).show();
             finish();
->>>>>>> 062b48c9f2bf0a3bad333aae7dff927c765579df
         }
     };
-    public void postFirebaseDatabase(boolean add){
-        try{
-            myRef = FirebaseDatabase.getInstance().getReference();
-            Map<String, Object> childUpdates = new HashMap<>();
-            Map<String, Object> postValues = null;
-            if(add){
-                //UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString()," ",UserPhoneNum,gender,age_result, 2);
-                UserDTO userDTO = new UserDTO("a","a","a","1","1",1,1,1);
-                postValues = userDTO.toMap();
-            }
-            childUpdates.put("/User/" + idtxt.getText().toString(), postValues);
-            myRef.updateChildren(childUpdates);
-        }catch (Exception e){
-            e.fillInStackTrace();
-        }
+
+    private void writeNewPost() {
+        UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
+
+        myRef.child(idtxt.getText().toString()).setValue(userDTO);
 
     }
 
