@@ -138,6 +138,7 @@
                     android:textSize="18dp" />
             </LinearLayout>
         </HorizontalScrollView>
+
     </LinearLayout>
 
         <LinearLayout
