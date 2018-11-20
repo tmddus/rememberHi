@@ -36,11 +36,12 @@
             android:id="@+id/checkList"
             android:layout_width="match_parent"
             android:layout_height="300dp">
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"/>
 
         </ListView>
-
-        <!--
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="346dp"
@@ -49,42 +50,12 @@
             android:choiceMode="multipleChoice">
 
             <CheckBox
-
-                android:id="@+id/check1"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:checked="false"
                 android:text="상태가 점점 악화되는 것 같다"
                 android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/check2"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:checked="false"
-                android:text="힌트를 줘도 기억이 안 난다"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/check3"
-                android:layout_width="300dp"
-                android:layout_height="54dp"
-                android:layout_marginTop="10dp"
-                android:checked="false"
-                android:text="건망증이 심하다기 보다 까맣게 잊어버린다"
-                android:textSize="18dp" />
-
-            <CheckBox
-                android:id="@+id/check4"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:checked="false"
-                android:text="나는 건망증이 심한 것 같다"
-                android:textSize="18dp" />
--->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="30pt"
@@ -120,3 +91,4 @@
 
         </LinearLayout>
     </LinearLayout>
+</LinearLayout>
