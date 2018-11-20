@@ -245,7 +245,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="@layout/btn_corner"
+        android:background="#ffffff"
         android:text="확인"
         android:textSize="25dp" />
 
