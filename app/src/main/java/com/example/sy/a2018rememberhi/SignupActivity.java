@@ -21,9 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class SignupActivity extends AppCompatActivity {
-    //FirebaseDatabase database;
-    //DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-   // DatabaseReference muserRef = mRootRef.child("user");
+    FirebaseDatabase database;
 
     EditText idtxt, pwdtxt, pwdtxt2, name, Userphone2, Userphone3;
     ArrayAdapter spinnerAdapter, phoneSpinnerAdapter_user;
@@ -38,7 +36,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        //database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
         pwdtxt2 = findViewById(R.id.pwdtxtConfirm);
@@ -65,11 +63,9 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
-
         for (int i = 1; i < 100; i++) {
             age.add(i);
         }
-
         phone.add("010");
         phone.add("011");
         phone.add("017");
@@ -81,8 +77,9 @@ public class SignupActivity extends AppCompatActivity {
         spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, age);
         spinner_age.setAdapter(spinnerAdapter);
 
- //       final Spinner spinner = (Spinner) findViewById(R.id.age);
-/*
+
+        final Spinner spinner = (Spinner) findViewById(R.id.age);
+
         spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -115,11 +112,9 @@ public class SignupActivity extends AppCompatActivity {
             UserPhoneNum += Userphone2.getText().toString();
             UserPhoneNum += Userphone3.getText().toString();
 
-            UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString()," ",UserPhoneNum,gender,age_result, 2);
-            database.getReference().child("user").setValue(userDTO);
+            //UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString()," ",UserPhoneNum,gender,age_result, 2);
+            //database.getReference().child("user").setValue(userDTO);
         }
     };
 
-*/
-    }
 }
