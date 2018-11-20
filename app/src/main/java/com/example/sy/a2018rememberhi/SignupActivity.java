@@ -3,9 +3,12 @@ package com.example.sy.a2018rememberhi;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -16,74 +19,141 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
-    FirebaseDatabase database;
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference muserRef = mRootRef.child("user");
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference();
 
-    EditText idtxt, pwdtxt, pwdtxt2, name, phone2, phone3;
-    ArrayAdapter spinnerAdapter;
-    Spinner spinner_age , spinner_phone1;
 
+    EditText idtxt, pwdtxt, pwdtxt2, name, Userphone2, Userphone3, Childphone2, Childphone3;
+    ArrayAdapter spinnerAdapter, phoneSpinnerAdapter_user;
+    Spinner spinner_age, spinner_phonenum_user, spinner_phonenum_child;
+    String gender_str;
+    int age_result, gender;
+    String UserPhoneNum = "";
+    String UserPhoneNumString = "", ChildPhoneNum = "";
+    Button signupBtnOK;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        database = FirebaseDatabase.getInstance();
+
+
+
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
         pwdtxt2 = findViewById(R.id.pwdtxt2);
         name = findViewById(R.id.name);
         spinner_age = findViewById(R.id.age);
-        spinner_phone1 = findViewById(R.id.phone1);
-        phone2 = findViewById(R.id.phone2);
-        phone3 = findViewById(R.id.phone3);
+
+        spinner_phonenum_user = findViewById(R.id.phonenum_spinner);
+        spinner_phonenum_child = findViewById(R.id.childPhonenum_spinner);
+        Userphone2 = findViewById(R.id.phone2);
+        Userphone3 = findViewById(R.id.phone3);
+        Childphone2 = findViewById(R.id.childphone2);
+        Childphone3 = findViewById(R.id.childphone3);
+        signupBtnOK = findViewById(R.id.signup_ok);
+
         final ArrayList<Integer> age = new ArrayList<>();
-        for(int i = 60; i < 100; i++){
-            age.add(i);
-        }
+        final ArrayList<String> phone = new ArrayList<>();
+
+        RadioGroup genderRadio = findViewById(R.id.rg_gender);
+
+        genderRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                gender_str = ((RadioButton) findViewById(checkedId)).getText().toString();
+                if (gender_str.equals("여성")) {gender = 1;}
+                else {gender = 0;}
+            }
+        });
+        for (int i = 1; i < 100; i++) { age.add(i); }
+        phone.add("010");
+        phone.add("011");
+        phone.add("016");
+        phone.add("017");
+        phone.add("019");
+
+
+        phoneSpinnerAdapter_user = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, phone);
+        spinner_phonenum_user.setAdapter(phoneSpinnerAdapter_user);
+        spinner_phonenum_child.setAdapter(phoneSpinnerAdapter_user);
+
 
         spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, age);
         spinner_age.setAdapter(spinnerAdapter);
 
-        spinner_age.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+        final Spinner spinner = (Spinner) findViewById(R.id.age);
+
+        spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                age_result = (int) spinner_age.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-        spinner_phone1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+        spinner_phonenum_user.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                UserPhoneNum = spinner_phonenum_user.getItemAtPosition(position).toString();
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
 
+
+        spinner_phonenum_child.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ChildPhoneNum = spinner_phonenum_child.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }});
+
+
+
+        signupBtnOK.setOnClickListener(bntListener);
 
     }
     View.OnClickListener bntListener = new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-            UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString()," "," ",11,21, 2);
-            database.getReference().child("user").setValue(userDTO);
+
+
+            UserPhoneNum += Userphone2.getText().toString();
+            UserPhoneNum += Userphone3.getText().toString();
+
+
+            ChildPhoneNum += Childphone2.getText().toString();
+            ChildPhoneNum += Childphone3.getText().toString();
+            Log.e("User : ",UserPhoneNum);
+            Log.e("Child : " , ChildPhoneNum);
+
+            myRef = FirebaseDatabase.getInstance().getReference("User");
+            writeNewPost();
+
+            Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다! 환영합니다 " + name.getText().toString() + "님.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     };
-    protected void onStart(){
-        super.onStart();
-        muserRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
 
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+    private void writeNewPost() {
+        UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
+
+        myRef.child(idtxt.getText().toString()).setValue(userDTO);
 
     }
+
 }
