@@ -9,8 +9,7 @@
         android:layout_width="fill_parent"
         android:id="@+id/im1"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
+        android:layout_weight="1">
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
@@ -59,8 +58,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background">
-    <shape xmlns:android="http://schemas.android.com/apk/res/android"
-        android:shape="line"></shape>
 
     <LinearLayout
         android:layout_width="wrap_content"
