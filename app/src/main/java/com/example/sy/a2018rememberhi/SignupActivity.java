@@ -10,7 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
 
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
-        pwdtxt2 = findViewById(R.id.pwdtxt2);
+        pwdtxt2 = findViewById(R.id.pwdtxtConfirm);
         name = findViewById(R.id.name);
         spinner_age = findViewById(R.id.age);
 

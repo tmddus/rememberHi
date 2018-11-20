@@ -12,8 +12,6 @@
         android:layout_marginTop="10dp"
         android:checked="false"
         android:textSize="18dp"
-        android:focusable="false"
-        android:clickable="false"
         />
     <TextView
         android:id="@+id/checkListText"
