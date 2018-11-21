@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -14,33 +15,35 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="오늘은"
+            android:text="오늘은 "
             android:textColor="#505050"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_gravity="center_vertical"/>
-        <DatePicker
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:id="@+id/datePicker"
-            android:layout_gravity="center_vertical"
-            android:datePickerMode="spinner"
-            android:calendarViewShown="false"/>
+        <TextView
+            android:id="@+id/today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018년 4월 13일"
+            android:textSize="30sp"
+            android:textColor="#000000"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="입니다"
+            android:text=" 입니다"
             android:textColor="#505050"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_gravity="center_vertical"/>
-        
+
     </LinearLayout>
-    
+
     <Button
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/todayend_write"
-        android:layout_width="170dp"
-        android:layout_height="60dp"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
-        android:background="#ffffff"
         android:textSize="25dp"
         android:text="글쓰기"/>
 
@@ -52,11 +55,9 @@
         android:layout_marginTop="15dp">
 
         <ListView
-            android:id="@+id/listview1"
+            android:id="@+id/today_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
-
     </LinearLayout>
 
 

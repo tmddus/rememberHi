@@ -1,4 +1,4 @@
-package com.example.sy.a2018rememberhi;
+package com.example.sy.a2018rememberhi.Activity;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.sy.a2018rememberhi.R;
+import com.example.sy.a2018rememberhi.UserDTO;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
 
         idtxt = findViewById(R.id.idtxt);
         pwdtxt = findViewById(R.id.pwdtxt);
-        pwdtxt2 = findViewById(R.id.pwdtxt2);
+        pwdtxt2 = findViewById(R.id.pwdtxtConfirm);
         name = findViewById(R.id.name);
         spinner_age = findViewById(R.id.age);
 
@@ -130,6 +135,22 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
+            if(idtxt.getText().toString().length() <= 0){
+                Toast.makeText(getApplicationContext(), "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show();
+                idtxt.setText("");
+                return;
+            }
+
+            if(pwdtxt.getText().toString().length() <= 0){
+                Toast.makeText(getApplicationContext(), "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
+                pwdtxt.setText("");
+                pwdtxt2.setText("");
+                return;
+            }else if(!pwdtxt.getText().toString().equals(pwdtxt2.getText().toString())){
+                Toast.makeText(getApplicationContext(), "비밀번호 확인을 해주세요", Toast.LENGTH_SHORT).show();
+                pwdtxt2.setText("");
+                return;
+            }
 
             UserPhoneNum += Userphone2.getText().toString();
             UserPhoneNum += Userphone3.getText().toString();
