@@ -14,20 +14,16 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
     public CheckableLinearLayout(Context context) {
         super(context);
     }
-
     @Override
     public void setChecked(boolean checked) {
         if (cb.isChecked() != checked) {
             cb.setChecked(checked) ;
         }
     }
-
-
     @Override
     public boolean isChecked() {
         return cb.isChecked();
     }
-
     @Override
     public void toggle() {
         setChecked(cb.isChecked() ? false : true);
