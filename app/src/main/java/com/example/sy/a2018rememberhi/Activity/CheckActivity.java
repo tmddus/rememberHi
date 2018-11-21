@@ -3,9 +3,11 @@ package com.example.sy.a2018rememberhi.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -64,11 +66,16 @@ public class CheckActivity extends AppCompatActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SparseBooleanArray checkedItems = checkListView.getCheckedItemPositions();
+
+
+                /*SparseBooleanArray checkedItems = checkListView.getCheckedItemPositions();
                 for (int i = adapter.getCount() - 1; i >= 0; i--) {
-                    if (checkedItems.get(i))
+                    if (checkedItems.get(i)) {
                         Checks++;
-                }
+                    }
+                }*/
+                Checks = adapter.getChecks();
+                Log.e("checks : " , Checks+"");
 
                 Map<String, Object> taskMap = new HashMap<String, Object>();
                 taskMap.put("userCheckList", Checks);

@@ -5,14 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.example.sy.a2018rememberhi.Activity.CheckActivity;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class checkListViewAdapter extends BaseAdapter {
 
     private ArrayList<String> TextList = new ArrayList<String>();
-
+    private  ArrayList<String> setString = new ArrayList<String>();
 
     @Override
     public int getCount() {
@@ -31,7 +36,6 @@ public class checkListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos = position;
         final Context context = parent.getContext();
 
         if (convertView == null) {
@@ -43,16 +47,29 @@ public class checkListViewAdapter extends BaseAdapter {
         TextView textTextView = (TextView) convertView.findViewById(R.id.checkListText) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        String ListText = TextList.get(position);
+        final String ListText = TextList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         textTextView.setText(ListText);
+        CheckBox tv = convertView.findViewById(R.id.checkListBox);
 
+        tv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    setString.add(ListText);
+                }else{
+                    setString.remove(ListText);
+                }
+            }
+        });
         return convertView;
     }
 
     public void setArray(ArrayList<String> array) {
         TextList = array;
     }
+    public int getChecks(){return setString.size();}
+
 
 }
