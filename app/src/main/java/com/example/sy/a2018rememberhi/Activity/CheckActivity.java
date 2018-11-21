@@ -1,6 +1,8 @@
 package com.example.sy.a2018rememberhi.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,8 @@ import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.checkListViewAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CheckActivity extends AppCompatActivity {
     ListView checkListView;
@@ -44,7 +48,6 @@ public class CheckActivity extends AppCompatActivity {
 
         checkListView.setAdapter(adapter);
 
-        checkListText.add("자기 전에 아무것도 생각이 안난다");
         myRef.child("CheckList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -56,27 +59,24 @@ public class CheckActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onCancelled(DatabaseError error) {
-                    Toast.makeText(getApplicationContext(), "로그인 실패 ", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
             });
         adapter.setArray(checkListText);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                /*SparseBooleanArray checkedItems = checkListView.getCheckedItemPositions();
-                for (int i = adapter.getCount() - 1; i >= 0; i--) {
-                    if (checkedItems.get(i)) {
-                        Checks++;
-                    }
-                }*/
                 Checks = adapter.getChecks();
                 Log.e("checks : " , Checks+"");
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                String loginId = auto.getString("inputId",null);
+
+                Map<String, Object> taskMap = new HashMap<String, Object>();
+                taskMap.put("userCheckList", Checks);
+                myRef.child("User").child(loginId).child("info").updateChildren(taskMap);
 
                 Intent intent = new Intent(CheckActivity.this, ProfileActivity.class);
                 startActivity(intent);
+
                 finish();
             }
         });

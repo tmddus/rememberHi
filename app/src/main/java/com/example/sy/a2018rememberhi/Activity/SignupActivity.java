@@ -1,11 +1,9 @@
 package com.example.sy.a2018rememberhi.Activity;
 
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,15 +15,10 @@ import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.UserDTO;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -37,8 +30,7 @@ public class SignupActivity extends AppCompatActivity {
     Spinner spinner_age, spinner_phonenum_user, spinner_phonenum_child;
     String gender_str;
     int age_result, gender;
-    String UserPhoneNum = "";
-    String UserPhoneNumString = "", ChildPhoneNum = "";
+    String UserPhoneNum = "", ChildPhoneNum = "";
     Button signupBtnOK;
 
 
@@ -93,9 +85,6 @@ public class SignupActivity extends AppCompatActivity {
         spinner_age.setAdapter(spinnerAdapter);
 
 
-
-        final Spinner spinner = (Spinner) findViewById(R.id.age);
-
         spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -125,9 +114,6 @@ public class SignupActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }});
-
-
-
         signupBtnOK.setOnClickListener(bntListener);
 
     }
@@ -172,8 +158,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void writeNewPost() {
         UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
-
-        myRef.child(idtxt.getText().toString()).setValue(userDTO);
+        myRef.child(idtxt.getText().toString()).child("info").setValue(userDTO);
 
     }
 
