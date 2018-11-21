@@ -21,6 +21,8 @@ import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.checkListViewAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CheckActivity extends AppCompatActivity {
     ListView checkListView;
@@ -67,6 +69,10 @@ public class CheckActivity extends AppCompatActivity {
 
                 Checks = adapter.getChecks();
                 Log.e("checks : " , Checks+"");
+
+                Map<String, Object> taskMap = new HashMap<String, Object>();
+                taskMap.put("userCheckList", Checks);
+                myRef.child("User").child("vvvv980").updateChildren(taskMap);
 
                 Intent intent = new Intent(CheckActivity.this, ProfileActivity.class);
                 startActivity(intent);
