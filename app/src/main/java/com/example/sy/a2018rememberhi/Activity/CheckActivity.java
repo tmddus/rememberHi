@@ -1,6 +1,8 @@
 package com.example.sy.a2018rememberhi.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,7 +48,6 @@ public class CheckActivity extends AppCompatActivity {
 
         checkListView.setAdapter(adapter);
 
-        checkListText.add("자기 전에 아무것도 생각이 안난다");
         myRef.child("CheckList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -58,8 +59,6 @@ public class CheckActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onCancelled(DatabaseError error) {
-                    Toast.makeText(getApplicationContext(), "로그인 실패 ", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
             });
         adapter.setArray(checkListText);
@@ -79,7 +78,11 @@ public class CheckActivity extends AppCompatActivity {
 
                 Map<String, Object> taskMap = new HashMap<String, Object>();
                 taskMap.put("userCheckList", Checks);
-                myRef.child("User").child("vvvv980").updateChildren(taskMap);
+
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                String loginId = auto.getString("inputId",null);
+
+                myRef.child("User").child(loginId).updateChildren(taskMap);
 
                 Intent intent = new Intent(CheckActivity.this, ProfileActivity.class);
                 startActivity(intent);
