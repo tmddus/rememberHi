@@ -23,7 +23,8 @@
         <activity android:name=".Activity.MissionActivity" />
         <activity android:name=".Activity.TodayendActivity" />
         <activity android:name=".Activity.MessageActivity" />
-        <activity android:name=".Activity.TodayendList"></activity>
+        <activity android:name=".Activity.TodayendList" />
+        <activity android:name=".Activity.ViewTodayendActivity"></activity>
     </application>
 
 </manifest>

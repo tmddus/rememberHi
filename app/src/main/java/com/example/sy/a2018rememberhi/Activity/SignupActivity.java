@@ -30,8 +30,7 @@ public class SignupActivity extends AppCompatActivity {
     Spinner spinner_age, spinner_phonenum_user, spinner_phonenum_child;
     String gender_str;
     int age_result, gender;
-    String UserPhoneNum = "";
-    String UserPhoneNumString = "", ChildPhoneNum = "";
+    String UserPhoneNum = "", ChildPhoneNum = "";
     Button signupBtnOK;
 
 
@@ -85,9 +84,6 @@ public class SignupActivity extends AppCompatActivity {
         spinnerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, age);
         spinner_age.setAdapter(spinnerAdapter);
 
-
-
-        final Spinner spinner = (Spinner) findViewById(R.id.age);
 
         spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

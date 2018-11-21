@@ -57,8 +57,8 @@ public class TodayendList extends AppCompatActivity {
 
         today.setText(getTime);
 
-       adapter.addItem("1", "엑소 보고싶다");
-       adapter.addItem("2", "집에도 가고싶다");
+        adapter.addItem("1", "엑소 보고싶다");
+        adapter.addItem("2", "집에도 가고싶다");
 
         myRef.child("1").addValueEventListener(new ValueEventListener() {
             @Override
