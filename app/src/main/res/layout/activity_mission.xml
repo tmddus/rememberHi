@@ -71,43 +71,10 @@
             android:layout_height="310dp"
             android:layout_margin="10dp"
             android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/check1"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:checked="false"
-                android:text="덧셈 1단계 성공하기"
-                android:textSize="20dp" />
-
-            <CheckBox
-                android:id="@+id/check2"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:checked="false"
-                android:text="화초에 물주기"
-                android:textSize="20dp" />
-
-            <CheckBox
-                android:id="@+id/check3"
-                android:layout_width="300dp"
-                android:layout_height="54dp"
-                android:layout_marginTop="10dp"
-                android:checked="false"
-                android:text="뺄셈 2단계 성공하기"
-                android:textSize="20dp" />
-
-            <CheckBox
-                android:id="@+id/check4"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:checked="false"
-                android:text="아들 용돈 2만원 주기"
-                android:textSize="20dp" />
-
+            <ListView
+                android:id="@+id/mission_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -120,6 +87,7 @@
         android:layout_gravity="center_horizontal">
 
         <Button
+            android:id="@+id/addMission"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
