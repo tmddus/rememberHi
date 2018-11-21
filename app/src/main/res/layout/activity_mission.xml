@@ -156,7 +156,8 @@
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/loginbutton"
-            android:textSize="10pt"
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:textColor="#ffffff"
             android:text="추가하기"/>
 
