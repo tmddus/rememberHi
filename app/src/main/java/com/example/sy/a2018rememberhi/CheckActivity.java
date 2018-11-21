@@ -22,7 +22,7 @@ public class CheckActivity extends AppCompatActivity {
     ArrayList<String> checkListText;
 
     FirebaseDatabase database  = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getInstance().getReference("User");
+    DatabaseReference myRef = database.getInstance().getReference();
     Button okBtn;
 
     @Override
@@ -38,15 +38,14 @@ public class CheckActivity extends AppCompatActivity {
         checkListView.setAdapter(adapter);
 
         checkListText.add("자기 전에 아무것도 생각이 안난다");
-       // myRef.child("vvvv980").getValue();
-        adapter.setArray(checkListText);
-        for(int i = 0 ; i < 20; i ++){
-            String a = "List" + String.valueOf(i+1);
-            myRef.child(a).addValueEventListener(new ValueEventListener() {
+        myRef.child("CheckList").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String check = dataSnapshot.getValue(String.class);
-                    checkListText.add(check);
+                    for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                        String str = fileSnapshot.getValue(String.class);
+                        checkListText.add(str);
+                    }
+                    adapter.notifyDataSetChanged();
                 }
                 @Override
                 public void onCancelled(DatabaseError error) {
@@ -54,10 +53,7 @@ public class CheckActivity extends AppCompatActivity {
                     finish();
                 }
             });
-        }
-
-
-
+        adapter.setArray(checkListText);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
