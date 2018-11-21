@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "로그인 실패 ", Toast.LENGTH_SHORT).show();
                 return;
             }
-               myRef.child(inputId.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+               myRef.child(inputId.getText().toString()).child("info").addListenerForSingleValueEvent(new ValueEventListener() {
                @Override
                public void onDataChange(DataSnapshot dataSnapshot) {
                    if (dataSnapshot.exists()) {

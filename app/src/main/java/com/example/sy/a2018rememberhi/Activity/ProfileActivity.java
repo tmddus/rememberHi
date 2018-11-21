@@ -1,47 +1,81 @@
 package com.example.sy.a2018rememberhi.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.R;
+import com.example.sy.a2018rememberhi.UserDTO;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
-
+    TextView textname,textage;
+    Button missionBtn, todayBtn, preventBtn, homeCommuBtn;
+    FirebaseDatabase database  = FirebaseDatabase.getInstance();
+    DatabaseReference myRef;
+    String loginId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_profile);
-        Button missionBtn = findViewById(R.id.mission_btn);
-        Button todayBtn = findViewById(R.id.how_today);
-        Button preventBtn = findViewById(R.id.prevent);
-        Button homeCommuBtn = findViewById(R.id.homecommu);
+        setContentView(R.layout.activity_profile);
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        loginId = auto.getString("inputId",null);
+        myRef = database.getInstance().getReference("User");
 
-        missionBtn.setOnClickListener(new View.OnClickListener() {
+        textname = findViewById(R.id.profile_name);
+        textage = findViewById(R.id.profile_age);
+        missionBtn = findViewById(R.id.mission_btn);
+        todayBtn = findViewById(R.id.how_today);
+        preventBtn = findViewById(R.id.prevent);
+        homeCommuBtn = findViewById(R.id.homecommu);
+
+
+        myRef.child(loginId).child("info").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this,MissionActivity.class);
-                startActivity(intent);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserDTO userDTO = dataSnapshot.getValue(UserDTO.class);
+                Log.e("유저 정보",userDTO.getUserName() + userDTO.getUserBirth());
+                textname.setText(userDTO.getUserName());
+                textage.setText(String.valueOf(userDTO.getUserBirth()));
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+
             }
         });
-
-        todayBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this,TodayendList.class);
-                startActivity(intent);
-            }
-        });
-
-        homeCommuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this,MessageActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        missionBtn.setOnClickListener(mClickListener);
+        todayBtn.setOnClickListener(mClickListener);
+        preventBtn.setOnClickListener(mClickListener);
+        homeCommuBtn.setOnClickListener(mClickListener);
     }
+    Button.OnClickListener mClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent intent;
+            switch (v.getId()) {
+                case R.id.mission_btn:
+                    intent = new Intent(ProfileActivity.this,MissionActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.how_today:
+                    intent = new Intent(ProfileActivity.this,TodayendList.class);
+                    startActivity(intent);
+                    break;
+                case R.id.homecommu:
+                    intent = new Intent(ProfileActivity.this,MessageActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
 }
