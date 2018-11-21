@@ -23,8 +23,6 @@ public class TodayendActivity extends AppCompatActivity {
         todayEtc = findViewById(R.id.todayEtc);
 
 
-
-
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
