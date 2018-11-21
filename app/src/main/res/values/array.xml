@@ -5,4 +5,17 @@
         <item>001</item>
         <item>030</item>
     </string-array>
+
+    <string-array name="weather">
+        <item>화창하다</item>
+        <item>쨍쨍하다</item>
+        <item>맑다</item>
+        <item>덥다</item>
+        <item>구름이 많다</item>
+        <item>쌀쌀하다</item>
+        <item>안개가 꼈다</item>
+        <item>비가 온다</item>
+        <item>습하다</item>
+        <item>춥다</item>
+    </string-array>
 </resources>
