@@ -108,38 +108,6 @@
                 android:text="아들 용돈 2만원 주기"
                 android:textSize="20dp" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="30pt"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/pre_btn"
-                    android:layout_width="25pt"
-                    android:layout_height="25pt"
-                    android:layout_gravity="left"
-                    android:background="@drawable/leftarrow"
-                    android:textSize="45dp"
-                    android:visibility="invisible" />
-
-                <Button
-                    android:id="@+id/next_btn"
-                    android:layout_width="25pt"
-                    android:layout_height="25pt"
-                    android:layout_gravity="right"
-                    android:background="@drawable/rightarrow"
-                    android:textSize="35dp"
-                    android:visibility="visible" />
-
-                <Button
-                    android:id="@+id/okbtn"
-                    android:layout_width="30pt"
-                    android:layout_height="25pt"
-                    android:layout_gravity="right"
-                    android:visibility="invisible" />
-            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 

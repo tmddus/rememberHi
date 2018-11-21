@@ -65,13 +65,6 @@ public class CheckActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                /*SparseBooleanArray checkedItems = checkListView.getCheckedItemPositions();
-                for (int i = adapter.getCount() - 1; i >= 0; i--) {
-                    if (checkedItems.get(i)) {
-                        Checks++;
-                    }
-                }*/
                 Checks = adapter.getChecks();
                 Log.e("checks : " , Checks+"");
 

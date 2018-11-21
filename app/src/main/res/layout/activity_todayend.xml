@@ -93,7 +93,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/end_1"
+                    android:id="@+id/key1"
                     android:layout_width="120dip"
                     android:layout_height="match_parent"
                     android:background="@drawable/border"
@@ -102,7 +102,7 @@
                     android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/end_2"
+                    android:id="@+id/key2"
                     android:layout_width="120dip"
                     android:layout_height="match_parent"
                     android:background="@drawable/border"
@@ -111,7 +111,7 @@
                     android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/end_3"
+                    android:id="@+id/key3"
                     android:layout_width="120dip"
                     android:layout_height="match_parent"
                     android:background="@drawable/border"
@@ -120,7 +120,7 @@
                     android:textSize="18dp" />
 
                 <TextView
-                android:id="@+id/end_4"
+                android:id="@+id/key4"
                 android:layout_width="120dip"
                 android:layout_height="match_parent"
                 android:background="@drawable/border"
@@ -129,12 +129,12 @@
                 android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/end_5"
+                    android:id="@+id/key5"
                     android:layout_width="120dip"
                     android:layout_height="match_parent"
                     android:background="@drawable/border"
                     android:gravity="center"
-                    android:text="화남"
+                    android:text="분노"
                     android:textSize="18dp" />
             </LinearLayout>
         </HorizontalScrollView>
