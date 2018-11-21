@@ -24,7 +24,8 @@
         <activity android:name=".Activity.TodayendActivity" />
         <activity android:name=".Activity.MessageActivity" />
         <activity android:name=".Activity.TodayendList" />
-        <activity android:name=".Activity.ViewTodayendActivity"></activity>
+        <activity android:name=".Activity.ViewTodayendActivity" />
+        <activity android:name=".Activity.Mission2Activity"></activity>
     </application>
 
 </manifest>
