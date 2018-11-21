@@ -18,12 +18,9 @@ import com.example.sy.a2018rememberhi.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-<<<<<<< HEAD
 import java.text.SimpleDateFormat;
 import java.util.Date;
-=======
 import java.util.ArrayList;
->>>>>>> 0cdfc814595098ca3b5fe5197e07d70d9be857ba
 
 public class TodayendActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -36,12 +33,11 @@ public class TodayendActivity extends AppCompatActivity {
     ArrayAdapter spinnerWeatherAdap, spinnerTensionAdap;
     TextView key1, key2, key3, key4, key5;
     int Num;
-<<<<<<< HEAD
+
     String key[] = new String[3];
     String getTime;
     int i;
-=======
->>>>>>> 0cdfc814595098ca3b5fe5197e07d70d9be857ba
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +53,7 @@ public class TodayendActivity extends AppCompatActivity {
         key3 = findViewById(R.id.key3);
         key4 = findViewById(R.id.key4);
         key5 = findViewById(R.id.key5);
-<<<<<<< HEAD
+
         key1.setOnClickListener(mClickListener);
         key2.setOnClickListener(mClickListener);
         key3.setOnClickListener(mClickListener);
@@ -68,7 +64,6 @@ public class TodayendActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         getTime = sdf.format(date);
         //승연아 병합 충돌 일어나면 swith를 살려줘 코드 가독성 보기 좋게 고쳤ㄷ어 사실 뭐가 더 가독성 있는지는 모르겠지만,,,,,,,,,,,,,, 넘 힘들다.
-=======
 
         final ArrayList<String> weather = new ArrayList<>();
         final ArrayList<String> tension = new ArrayList<>();
@@ -139,8 +134,6 @@ public class TodayendActivity extends AppCompatActivity {
                 todayEtc.setText(todayEtc.getText().toString() + "분노");
             }
         });
->>>>>>> 0cdfc814595098ca3b5fe5197e07d70d9be857ba
-
 
 
         postBtn.setOnClickListener(new View.OnClickListener() {
