@@ -28,35 +28,28 @@ public class UserDTO {
         this.userCheckList = userCheckList;
     }
     public String getUserName(){
-
         return userName;
     }
     public void setUserName(String userName)
     {
         this.userName = userName;
     }
-
     public String getUserID() {
-
         return userID;
     }
     public void setUserID(String userID) {
         this.userID = userID;
     }
     public String getUserPWD() {
-
         return userPWD;
     }
     public void setUserPWD(String userPWD) {
-
         this.userPWD = userPWD;
     }
     public String getUserChildPhone() {
-
         return userChildPhone;
     }
     public void setUserChildPhone(String userChildPhone) {
-
         this.userChildPhone = userChildPhone;
     }
     public String getUserPhone()
@@ -64,18 +57,15 @@ public class UserDTO {
         return userPhone;
     }
     public void setUserPhone(String userPhone) {
-
         this.userPhone = userPhone;
     }
     public int getUserGender() {
         return userGender;
     }
     public void setUserGender(int userGender) {
-
         this.userGender = userGender;
     }
     public int getUserBirth() {
-
         return userBirth;
     }
     public void setUserBirth(int userBirth) {
