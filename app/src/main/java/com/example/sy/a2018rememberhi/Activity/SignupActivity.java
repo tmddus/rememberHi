@@ -162,8 +162,7 @@ public class SignupActivity extends AppCompatActivity {
 
     private void writeNewPost() {
         UserDTO userDTO = new UserDTO(name.getText().toString(),idtxt.getText().toString(),pwdtxt2.getText().toString(),ChildPhoneNum,UserPhoneNum,gender,age_result, 2);
-
-        myRef.child(idtxt.getText().toString()).setValue(userDTO);
+        myRef.child(idtxt.getText().toString()).child("info").setValue(userDTO);
 
     }
 

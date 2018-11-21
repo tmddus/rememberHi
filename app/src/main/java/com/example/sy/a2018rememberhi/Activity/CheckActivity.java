@@ -65,27 +65,18 @@ public class CheckActivity extends AppCompatActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                /*SparseBooleanArray checkedItems = checkListView.getCheckedItemPositions();
-                for (int i = adapter.getCount() - 1; i >= 0; i--) {
-                    if (checkedItems.get(i)) {
-                        Checks++;
-                    }
-                }*/
                 Checks = adapter.getChecks();
                 Log.e("checks : " , Checks+"");
-
-                Map<String, Object> taskMap = new HashMap<String, Object>();
-                taskMap.put("userCheckList", Checks);
-
                 SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
                 String loginId = auto.getString("inputId",null);
 
-                myRef.child("User").child(loginId).updateChildren(taskMap);
+                Map<String, Object> taskMap = new HashMap<String, Object>();
+                taskMap.put("userCheckList", Checks);
+                myRef.child("User").child(loginId).child("info").updateChildren(taskMap);
 
                 Intent intent = new Intent(CheckActivity.this, ProfileActivity.class);
                 startActivity(intent);
+
                 finish();
             }
         });
