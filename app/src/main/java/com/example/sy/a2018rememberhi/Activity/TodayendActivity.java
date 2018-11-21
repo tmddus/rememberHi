@@ -32,7 +32,7 @@ public class TodayendActivity extends AppCompatActivity {
     Spinner spinnerWeather, spinnerTension;
     ArrayAdapter spinnerWeatherAdap, spinnerTensionAdap;
     TextView key1, key2, key3, key4, key5;
-    int Num;
+    public static int Today_Num = 0;
 
     String key[] = new String[3];
     String getTime;
@@ -72,9 +72,19 @@ public class TodayendActivity extends AppCompatActivity {
         spinnerTension = findViewById(R.id.spinner_tension);
 
         spinnerWeatherAdap = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, weather);
+        spinnerWeatherAdap.add("화창");
+        spinnerWeatherAdap.add("흐림");
+        spinnerWeatherAdap.add("구름");
+        spinnerWeatherAdap.add("비");
+        spinnerWeatherAdap.add("눈");
         spinnerWeather.setAdapter(spinnerWeatherAdap);
 
         spinnerTensionAdap = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, tension);
+        spinnerTensionAdap.add("행복");
+        spinnerTensionAdap.add("기쁨");
+        spinnerTensionAdap.add("화남");
+        spinnerTensionAdap.add("슬픔");
+        spinnerTensionAdap.add("우울");
         spinnerTension.setAdapter(spinnerTensionAdap);
 
         final Spinner spinner = (Spinner) findViewById(R.id.age);
@@ -103,39 +113,6 @@ public class TodayendActivity extends AppCompatActivity {
             }
         });
 
-        key1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "행복");
-            }
-        });
-        key2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "기쁨");
-            }
-        });
-        key3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "즐거움");
-            }
-        });
-        key4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "우울");
-            }
-        });
-
-        key5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "분노");
-            }
-        });
-
-
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,13 +122,16 @@ public class TodayendActivity extends AppCompatActivity {
         });
     }
     private void writeNewPost() {
-       DiaryDTO diaryDTO = new DiaryDTO(todayEtc.getText().toString(),getTime,"",key[0],key[1],key[2],"");
-        Num++;
-        myRef.child(String.valueOf(Num)).setValue(diaryDTO);
+       DiaryDTO diaryDTO = new DiaryDTO(todayEtc.getText().toString(),getTime,TodayFeeling,key[0],key[1],key[2],TodayWeather);
+        myRef.push().setValue(diaryDTO);
 
     }
     TextView.OnClickListener mClickListener = new View.OnClickListener() {
         public void onClick(View v) {
+            if (i >= 3 ){
+                Toast.makeText(getApplicationContext(), "키워드는 3개만 선택 하실 수 있습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
                 switch (v.getId()){
                     case R.id.key1:
                         key[i] = "행복"; i++; break;
@@ -164,10 +144,7 @@ public class TodayendActivity extends AppCompatActivity {
                     case R.id.key5:
                         key[i] = "화남"; i++;  break;
                 }
-                if (i > 3 ){
-                    Toast.makeText(getApplicationContext(), "키워드는 3개만 선택 하실 수 있습니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
             }
     };
 }

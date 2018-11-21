@@ -57,21 +57,20 @@ public class TodayendList extends AppCompatActivity {
         item = new TodayListItem();
 
         today.setText(getTime);
-
-        myRef.child("1").addListenerForSingleValueEvent(new ValueEventListener() {
-
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 Num++;
                                 adapter.addItem(String.valueOf(Num), diaryDTO.getDiaryDate()+"의 기록");
+                                adapter.notifyDataSetChanged();
                             }
-                            adapter.notifyDataSetChanged();
                         }
                         @Override
                         public void onCancelled(DatabaseError error) {
