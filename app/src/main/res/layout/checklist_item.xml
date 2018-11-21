@@ -3,18 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="#f7f7f7"
-    >
+    android:background="#ffffff"
+>
     <CheckBox
         android:id="@+id/checkListBox"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:checked="false"
-        android:textSize="18dp"
-        android:focusable="false"
-        android:clickable="false"
-        />
+        android:textSize="18dp" />
+
     <TextView
         android:id="@+id/checkListText"
         android:layout_marginLeft="5dp"
@@ -22,6 +20,6 @@
         android:textSize="20sp"
         android:layout_marginTop="10dp"
         android:text="Text"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_width="320dp"
+        android:layout_height="wrap_content" />
 </LinearLayout>
