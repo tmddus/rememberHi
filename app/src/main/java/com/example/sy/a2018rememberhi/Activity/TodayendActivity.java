@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TodayendActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -23,7 +27,9 @@ public class TodayendActivity extends AppCompatActivity {
     String TodayFeeling;
     TextView key1, key2, key3, key4, key5;
     int Num;
-
+    String key[] = new String[3];
+    String getTime;
+    int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,40 +45,16 @@ public class TodayendActivity extends AppCompatActivity {
         key3 = findViewById(R.id.key3);
         key4 = findViewById(R.id.key4);
         key5 = findViewById(R.id.key5);
-
-        //코드가 정말 너무 더럽지만 더이상 xml을 수정하고싶지 않앗어..
-
-        key1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "행복");
-            }
-        });
-        key2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "기쁨");
-            }
-        });
-        key3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "즐거움");
-            }
-        });
-        key4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "우울");
-            }
-        });
-
-        key5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                todayEtc.setText(todayEtc.getText().toString() + "분노");
-            }
-        });
+        key1.setOnClickListener(mClickListener);
+        key2.setOnClickListener(mClickListener);
+        key3.setOnClickListener(mClickListener);
+        key4.setOnClickListener(mClickListener);
+        key5.setOnClickListener(mClickListener);
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+        getTime = sdf.format(date);
+        //승연아 병합 충돌 일어나면 swith를 살려줘 코드 가독성 보기 좋게 고쳤ㄷ어 사실 뭐가 더 가독성 있는지는 모르겠지만,,,,,,,,,,,,,, 넘 힘들다.
 
 
 
@@ -80,13 +62,34 @@ public class TodayendActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 writeNewPost();
+                finish();
             }
         });
     }
     private void writeNewPost() {
-       DiaryDTO diaryDTO = new DiaryDTO("","","","","","","");
+       DiaryDTO diaryDTO = new DiaryDTO(todayEtc.getText().toString(),getTime,"",key[0],key[1],key[2],"");
         Num++;
         myRef.child(String.valueOf(Num)).setValue(diaryDTO);
 
     }
+    TextView.OnClickListener mClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.key1:
+                        key[i] = "행복"; i++; break;
+                    case R.id.key2:
+                        key[i] = "기쁨"; i++; break;
+                    case R.id.key3:
+                        key[i] = "즐거움"; i++; break;
+                    case R.id.key4:
+                        key[i] = "우울함"; i++;  break;
+                    case R.id.key5:
+                        key[i] = "화남"; i++;  break;
+                }
+                if (i > 3 ){
+                    Toast.makeText(getApplicationContext(), "키워드는 3개만 선택 하실 수 있습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+    };
 }

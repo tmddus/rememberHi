@@ -35,6 +35,7 @@ public class TodayendList extends AppCompatActivity {
     FirebaseDatabase database  = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
     String loginId;
+    int Num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
@@ -57,21 +58,32 @@ public class TodayendList extends AppCompatActivity {
 
         today.setText(getTime);
 
-        adapter.addItem("1", "엑소 보고싶다");
-        adapter.addItem("2", "집에도 가고싶다");
+        myRef.child("1").addListenerForSingleValueEvent(new ValueEventListener() {
 
-        myRef.child("1").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                DiaryDTO diaryDTO = dataSnapshot.getValue(DiaryDTO.class);
-                Log.e("asdfasdf",diaryDTO.getDiaryDate());
-                adapter.addItem("9", diaryDTO.getDiaryDate());
-                adapter.notifyDataSetChanged();
+                if (dataSnapshot.exists()) {
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
+                                Num++;
+                                adapter.addItem(String.valueOf(Num), diaryDTO.getDiaryDate()+"의 기록");
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                        }
+                    });
+                }
+                return;
             }
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
-        });
+                @Override
+                public void onCancelled (DatabaseError error){
+                }
+            });
 
         listview.setAdapter(adapter);
 
