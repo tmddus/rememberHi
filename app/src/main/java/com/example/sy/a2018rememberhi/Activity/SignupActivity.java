@@ -135,6 +135,22 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
+            if(idtxt.getText().toString().length() <= 0){
+                Toast.makeText(getApplicationContext(), "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show();
+                idtxt.setText("");
+                return;
+            }
+
+            if(pwdtxt.getText().toString().length() <= 0){
+                Toast.makeText(getApplicationContext(), "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
+                pwdtxt.setText("");
+                pwdtxt2.setText("");
+                return;
+            }else if(!pwdtxt.getText().toString().equals(pwdtxt2.getText().toString())){
+                Toast.makeText(getApplicationContext(), "비밀번호 확인을 해주세요", Toast.LENGTH_SHORT).show();
+                pwdtxt2.setText("");
+                return;
+            }
 
             UserPhoneNum += Userphone2.getText().toString();
             UserPhoneNum += Userphone3.getText().toString();
