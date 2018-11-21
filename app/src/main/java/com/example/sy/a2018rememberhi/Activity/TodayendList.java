@@ -44,7 +44,6 @@ public class TodayendList extends AppCompatActivity {
 
         listview.setAdapter(adapter);
 
-
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
