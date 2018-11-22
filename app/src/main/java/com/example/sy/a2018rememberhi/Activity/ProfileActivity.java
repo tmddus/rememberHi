@@ -48,16 +48,12 @@ public class ProfileActivity extends AppCompatActivity {
         preventBtn = findViewById(R.id.prevent);
         homeCommuBtn = findViewById(R.id.homecommu);
         missionProgress = findViewById(R.id.missionBar);
-<<<<<<< HEAD
         Logout_Btn = findViewById(R.id.logout_btn);
-
-=======
 
         checkValue = 20; ValueCnt = 100;
         missionProgress = findViewById(R.id.missionBar);
         valueResult = (int)(checkValue/ValueCnt *100);
         missionProgress.setProgress(valueResult);
->>>>>>> dcfa6f5491512b3fce58ebca0b2c94a8aa1eb2ab
 
         myRef.child(loginId).child("info").addValueEventListener(new ValueEventListener() {
             @Override

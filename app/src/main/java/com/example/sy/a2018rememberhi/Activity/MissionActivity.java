@@ -9,22 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
-<<<<<<< HEAD
-import com.example.sy.a2018rememberhi.missionAdapter;
+import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-=======
 import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
 import com.example.sy.a2018rememberhi.missionItem;
-
 import java.util.ArrayList;
->>>>>>> dcfa6f5491512b3fce58ebca0b2c94a8aa1eb2ab
 
 public class MissionActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -64,7 +59,7 @@ public class MissionActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+/*
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,6 +85,7 @@ public class MissionActivity extends AppCompatActivity {
             public void onCancelled (DatabaseError error){
             }
         });
+        */
 
     }
 }

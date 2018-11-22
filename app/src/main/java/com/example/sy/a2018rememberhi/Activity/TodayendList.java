@@ -55,6 +55,7 @@ public class TodayendList extends AppCompatActivity {
         item = new TodayListItem();
 
         today.setText(getTime);
+        /*
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -65,15 +66,11 @@ public class TodayendList extends AppCompatActivity {
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 Num++;
-<<<<<<< HEAD
                                 adapter.addItem(String.valueOf(Num), diaryDTO.getDiaryDate()+"의 기록");
                                 adapter.notifyDataSetChanged();
-=======
                                 item.setListTitle(diaryDTO.getDiaryDate()+"의 기록");
                                 item.setListNum(String.valueOf(Num));
-
                                 array.add(item);
->>>>>>> dcfa6f5491512b3fce58ebca0b2c94a8aa1eb2ab
                             }
                         }
                         @Override
@@ -88,16 +85,16 @@ public class TodayendList extends AppCompatActivity {
             public void onCancelled (DatabaseError error){
             }
         });
+
         adapter.notifyDataSetChanged();
 =======
                 @Override
                 public void onCancelled (DatabaseError error){
                 }
             });
-
+*/
         adapter.setArray(array);
-
->>>>>>> dcfa6f5491512b3fce58ebca0b2c94a8aa1eb2ab
+        
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

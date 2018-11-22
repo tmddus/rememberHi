@@ -14,14 +14,11 @@ import android.widget.Toast;
 import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
-<<<<<<< HEAD
-import com.example.sy.a2018rememberhi.TodayListAdapter;
+import com.example.sy.a2018rememberhi.Adapter.TodayListAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Time;
-=======
->>>>>>> dcfa6f5491512b3fce58ebca0b2c94a8aa1eb2ab
 
 public class Mission2Activity extends AppCompatActivity implements TimePicker.OnTimeChangedListener {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
