@@ -70,6 +70,8 @@ public class CheckActivity extends AppCompatActivity {
                 taskMap.put("userCheckList", Checks);
                 myRef.child("User").child(loginId).child("info").updateChildren(taskMap);
 
+                Log.e("log 직음","finish");
+
                 Intent intent = new Intent(CheckActivity.this, ProfileActivity.class);
                 startActivity(intent);
 

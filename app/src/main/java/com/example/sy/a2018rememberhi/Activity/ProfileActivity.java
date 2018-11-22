@@ -23,17 +23,20 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
     TextView textname,textage;
-    Button missionBtn, todayBtn, preventBtn, homeCommuBtn;
+    Button missionBtn, todayBtn, preventBtn, homeCommuBtn, Logout_Btn;
     FirebaseDatabase database  = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
     String loginId;
     ProgressBar missionProgress;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        final SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
+
         myRef = database.getInstance().getReference("User");
         int valueResult=0;
         float checkValue=0, ValueCnt=0;
@@ -45,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         preventBtn = findViewById(R.id.prevent);
         homeCommuBtn = findViewById(R.id.homecommu);
         missionProgress = findViewById(R.id.missionBar);
+        Logout_Btn = findViewById(R.id.logout_btn);
 
         checkValue = 20; ValueCnt = 100;
         missionProgress = findViewById(R.id.missionBar);
@@ -64,10 +68,24 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+        Logout_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "로그아웃 성공 ", Toast.LENGTH_SHORT).show();
+                SharedPreferences.Editor autoLogin = auto.edit();
+                autoLogin.putString("inputId", null);
+                autoLogin.putString("inputPwd", null);
+                //꼭 commit()을 해줘야 값이 저장됩니다 ㅎㅎ
+                autoLogin.commit();
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         missionBtn.setOnClickListener(mClickListener);
         todayBtn.setOnClickListener(mClickListener);
         preventBtn.setOnClickListener(mClickListener);
         homeCommuBtn.setOnClickListener(mClickListener);
+
     }
     Button.OnClickListener mClickListener = new View.OnClickListener() {
         public void onClick(View v) {
