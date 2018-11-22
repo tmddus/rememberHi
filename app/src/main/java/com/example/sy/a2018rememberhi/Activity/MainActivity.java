@@ -7,24 +7,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.R;
 import com.google.firebase.database.FirebaseDatabase;
 
+import javax.xml.transform.Result;
+
 public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     String loginId, loginPwd;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         database = FirebaseDatabase.getInstance();
+        int checkValue = 20, ValueCnt=100, valueResult=0; // checkValue는 check 된 것들을 모두 더한 값 ValueCnt는 로우 수
 
         Button signUpBtn = findViewById(R.id.start_signUp);
         Button loginInBtn = findViewById(R.id.start_login);
+
+
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         //처음에는 SharedPreferences에 아무런 정보도 없으므로 값을 저장할 키들을 생성한다.

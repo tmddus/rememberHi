@@ -5,18 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.R;
-import com.example.sy.a2018rememberhi.TodayListAdapter;
+import com.example.sy.a2018rememberhi.Adapter.TodayListAdapter;
 import com.example.sy.a2018rememberhi.TodayListItem;
-import com.example.sy.a2018rememberhi.UserDTO;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TodayendList extends AppCompatActivity {
@@ -41,7 +39,6 @@ public class TodayendList extends AppCompatActivity {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/diary");
-
         adapter = new TodayListAdapter();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todayend_list);
@@ -51,6 +48,7 @@ public class TodayendList extends AppCompatActivity {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
+        final ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
 
         listview = findViewById(R.id.today_listview);
 
@@ -69,7 +67,10 @@ public class TodayendList extends AppCompatActivity {
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 Num++;
-                                adapter.addItem(String.valueOf(Num), diaryDTO.getDiaryDate()+"의 기록");
+                                item.setListTitle(diaryDTO.getDiaryDate()+"의 기록");
+                                item.setListNum(String.valueOf(Num));
+
+                                array.add(item);
                             }
                             adapter.notifyDataSetChanged();
                         }
@@ -84,6 +85,8 @@ public class TodayendList extends AppCompatActivity {
                 public void onCancelled (DatabaseError error){
                 }
             });
+
+        adapter.setArray(array);
 
         listview.setAdapter(adapter);
 

@@ -6,12 +6,9 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import com.example.sy.a2018rememberhi.R;
-import com.example.sy.a2018rememberhi.checkListViewAdapter;
+import com.example.sy.a2018rememberhi.Adapter.checkListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +50,7 @@ public class CheckActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                         String str = fileSnapshot.getValue(String.class);
-                        checkListText.add(str);
+                        adapter.addItem(str);
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -61,7 +58,6 @@ public class CheckActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError error) {
                 }
             });
-        adapter.setArray(checkListText);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,14 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.R;
-import com.example.sy.a2018rememberhi.TodayListAdapter;
-
-import java.sql.Time;
 
 public class Mission2Activity extends AppCompatActivity implements TimePicker.OnTimeChangedListener {
     Button okBtn;
