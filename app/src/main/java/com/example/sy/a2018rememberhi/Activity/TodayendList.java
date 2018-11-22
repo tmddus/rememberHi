@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -84,11 +85,27 @@ public class TodayendList extends AppCompatActivity {
         });
 
         adapter.notifyDataSetChanged();
-
         adapter.setArray(array);
-        
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(TodayendList.this, ViewTodayendActivity.class);
+
+                TodayListItem item = (TodayListItem) adapter.getItem(position); // 누른 게시글의 item 반환.
+                //  item.getListNum(); item.setListTitle();
+                //  item.getListNum();는 터치한 게시글의 숫자 item.setListTitle();는 터치한 게시글의 타이틀.
+
+                String title="", today_content="";//여기 DB에서 받아와주세요~!
+                intent.putExtra("title", title);
+                intent.putExtra("content", today_content);
+                startActivity(intent);
+
+            }
+        });
 
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -42,6 +42,7 @@ public class TodayendActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todayend);
+
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/diary");

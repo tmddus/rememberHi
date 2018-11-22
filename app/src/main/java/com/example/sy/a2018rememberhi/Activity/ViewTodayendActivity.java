@@ -1,6 +1,7 @@
 package com.example.sy.a2018rememberhi.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,12 +26,14 @@ public class ViewTodayendActivity extends AppCompatActivity {
         loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/diary");
 
+        inputTitle = getIntent().getExtras().getString("title");
+        inputScript = getIntent().getExtras().getString("content");
+
         title = findViewById(R.id.title);
         script = findViewById(R.id.script);
 
         title.setText(inputTitle);
         script.setText(inputScript);
-
 
     }
 }
