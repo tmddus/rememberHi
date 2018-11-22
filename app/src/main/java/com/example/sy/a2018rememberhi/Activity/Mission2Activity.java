@@ -48,11 +48,8 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
                 writeNewPost();
-=======
                 String MissionTxt = Mission.getText().toString();
->>>>>>> 6db320ca4f777856877ee31fcaa86fa5b1c0b618
                 Toast.makeText(getApplicationContext(), nHour+"시 " + nminute+"분에 알림 설정 되었습니다", Toast.LENGTH_SHORT);
 
                 Intent intent = new Intent(Mission2Activity.this, MissionActivity.class);
