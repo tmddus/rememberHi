@@ -94,7 +94,7 @@ public class TodayendList extends AppCompatActivity {
             });
 */
         adapter.setArray(array);
-        
+
         listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
