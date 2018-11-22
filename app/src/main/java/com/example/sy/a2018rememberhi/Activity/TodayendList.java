@@ -52,6 +52,7 @@ public class TodayendList extends AppCompatActivity {
         final ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
 
         listview = findViewById(R.id.today_listview);
+        listview.setAdapter(adapter);
 
         item = new TodayListItem();
 
@@ -86,7 +87,6 @@ public class TodayendList extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
         adapter.setArray(array);
-        listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
 

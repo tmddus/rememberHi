@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
@@ -59,6 +63,20 @@ public class MissionActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        registerForContextMenu(missionList);
+
+
+        missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                return false;
+            }
+        });
+
 /*
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,4 +106,59 @@ public class MissionActivity extends AppCompatActivity {
         */
 
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        //res폴더의 menu플더안에 xml로 MenuItem추가하기.
+
+        //mainmenu.xml 파일을 java 객체로 인플레이트(inflate)해서 menu객체에 추가
+        getMenuInflater().inflate(R.menu.context_menu, menu);
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+    }
+
+    //Context 메뉴로 등록한 View(여기서는 ListView)가 클릭되었을 때 자동으로 호출되는 메소드
+
+    public boolean onContextItemSelected(MenuItem item) {
+
+        //AdapterContextMenuInfo
+
+        //AdapterView가 onCreateContextMenu할때의 추가적인 menu 정보를 관리하는 클래스
+
+        //ContextMenu로 등록된 AdapterView(여기서는 Listview)의 선택된 항목에 대한 정보를 관리하는 클래스
+
+        AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+
+
+
+        int index= info.position; //AdapterView안에서 ContextMenu를 보여즈는 항목의 위치
+
+        switch( item.getItemId() ){
+
+            case R.id.delete:
+
+                Toast.makeText(this, " 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                adapter.notifyDataSetChanged();
+                break;
+
+
+
+            case R.id.missionCh:
+
+                Toast.makeText(this, ((missionItem)adapter.getItem(index)).getMissionText(), Toast.LENGTH_SHORT).show();
+
+                break;
+
+
+
+        }
+
+
+
+        return true;
+
+    };
+
+
 }

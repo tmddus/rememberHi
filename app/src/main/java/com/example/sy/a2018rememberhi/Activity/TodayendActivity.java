@@ -127,6 +127,7 @@ public class TodayendActivity extends AppCompatActivity {
        DiaryDTO diaryDTO = new DiaryDTO(todayEtc.getText().toString(),getTime,TodayFeeling,key[0],key[1],key[2],TodayWeather);
         myRef.push().setValue(diaryDTO);
     }
+
     TextView.OnClickListener mClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             if (i >= 3 ){
