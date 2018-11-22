@@ -1,4 +1,4 @@
-package com.example.sy.a2018rememberhi;
+package com.example.sy.a2018rememberhi.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.sy.a2018rememberhi.R;
+import com.example.sy.a2018rememberhi.TodayListItem;
 
 import java.util.ArrayList;
 
@@ -54,11 +57,5 @@ public class TodayListAdapter extends BaseAdapter {
 
     }
 
-    public void addItem(String num, String title) {
-        TodayListItem item = new TodayListItem();
-
-        item.setListNum(num);
-        item.setListTitle(title);
-        array.add(item);
-    }
+    public void setArray(ArrayList<TodayListItem> arr){ array = arr; }
 }

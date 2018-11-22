@@ -87,7 +87,8 @@ public class TodayendActivity extends AppCompatActivity {
         spinnerTensionAdap.add("우울");
         spinnerTension.setAdapter(spinnerTensionAdap);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.age);
+        final Spinner spinner_w = (Spinner) findViewById(R.id.spinner_weather);
+        final Spinner spinner_t = (Spinner) findViewById(R.id.spinner_tension);
 
         spinnerWeather.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
