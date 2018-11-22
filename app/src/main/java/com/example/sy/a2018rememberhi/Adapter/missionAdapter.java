@@ -1,4 +1,4 @@
-package com.example.sy.a2018rememberhi;
+package com.example.sy.a2018rememberhi.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.sy.a2018rememberhi.R;
+import com.example.sy.a2018rememberhi.missionItem;
 
 import java.util.ArrayList;
 
@@ -55,8 +58,7 @@ public class missionAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void addItem(String str, int bool){
-        missionItem i = new missionItem(bool, str);
-        missionItems.add(i);
+    public void setArray(ArrayList<missionItem> arr){
+     missionItems = arr;
     }
 }
