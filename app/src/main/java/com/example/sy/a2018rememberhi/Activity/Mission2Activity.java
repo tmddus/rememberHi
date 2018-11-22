@@ -20,6 +20,7 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
     EditText Mission;
     TimePicker alarmTime;
     int nHour, nminute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +28,6 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
         okBtn = findViewById(R.id.mission2_ok);
         Mission = findViewById(R.id.todayCom);
         alarmTime = findViewById(R.id.timePicker);
-
 
         alarmTime.setOnTimeChangedListener(this);
 

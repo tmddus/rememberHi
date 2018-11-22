@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseDatabase database  = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
     String loginId;
+    ProgressBar missionProgress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
         todayBtn = findViewById(R.id.how_today);
         preventBtn = findViewById(R.id.prevent);
         homeCommuBtn = findViewById(R.id.homecommu);
+        missionProgress = findViewById(R.id.missionBar);
+
 
 
         myRef.child(loginId).child("info").addValueEventListener(new ValueEventListener() {
