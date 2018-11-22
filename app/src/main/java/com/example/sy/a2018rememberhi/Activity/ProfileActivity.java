@@ -3,6 +3,7 @@ package com.example.sy.a2018rememberhi.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User");
+        int valueResult=0;
+        float checkValue=0, ValueCnt=0;
 
         textname = findViewById(R.id.profile_name);
         textage = findViewById(R.id.profile_age);
@@ -43,7 +46,10 @@ public class ProfileActivity extends AppCompatActivity {
         homeCommuBtn = findViewById(R.id.homecommu);
         missionProgress = findViewById(R.id.missionBar);
 
-
+        checkValue = 20; ValueCnt = 100;
+        missionProgress = findViewById(R.id.missionBar);
+        valueResult = (int)(checkValue/ValueCnt *100);
+        missionProgress.setProgress(valueResult);
 
         myRef.child(loginId).child("info").addValueEventListener(new ValueEventListener() {
             @Override
@@ -79,6 +85,8 @@ public class ProfileActivity extends AppCompatActivity {
                     intent = new Intent(ProfileActivity.this,MessageActivity.class);
                     startActivity(intent);
                     break;
+                case R.id.prevent:
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.nid.or.kr/info/diction_list1.aspx?gubun=0101")));
             }
         }
     };
