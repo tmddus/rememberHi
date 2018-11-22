@@ -1,6 +1,8 @@
 package com.example.sy.a2018rememberhi.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,12 +11,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.sy.a2018rememberhi.DiaryDTO;
+import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.TodayListAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Time;
 
 public class Mission2Activity extends AppCompatActivity implements TimePicker.OnTimeChangedListener {
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef;
     Button okBtn;
     TextView Mission;
     TimePicker alarmTime;
@@ -22,6 +30,10 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        String loginId = auto.getString("inputId",null);
+        myRef = database.getInstance().getReference("User/"+loginId+"/mission");
+
         setContentView(R.layout.activity_mission2);
         okBtn = findViewById(R.id.mission2_ok);
         Mission = findViewById(R.id.todayCom);
@@ -33,7 +45,7 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                writeNewPost();
                 Toast.makeText(getApplicationContext(), nHour+"시 " + nminute+"분에 알림 설정 되었습니다", Toast.LENGTH_SHORT);
 
                 Intent intent = new Intent(Mission2Activity.this, MissionActivity.class);
@@ -46,5 +58,9 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
     public void onTimeChanged(TimePicker timePicker, int hourOfDay,  int minute){
         nHour = hourOfDay;
         nminute = minute;
+    }
+    private void writeNewPost() {
+        MissionDTO missionDTO = new MissionDTO(" "," ",0,Mission.getText().toString());
+        myRef.push().setValue(missionDTO);
     }
 }

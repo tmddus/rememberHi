@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TodayendList extends AppCompatActivity {
@@ -64,7 +65,6 @@ public class TodayendList extends AppCompatActivity {
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 Num++;
@@ -79,12 +79,13 @@ public class TodayendList extends AppCompatActivity {
                 }
                 return;
             }
-                @Override
-                public void onCancelled (DatabaseError error){
-                }
-            });
-
+            @Override
+            public void onCancelled (DatabaseError error){
+            }
+        });
+        adapter.notifyDataSetChanged();
         listview.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
