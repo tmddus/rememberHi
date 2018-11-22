@@ -9,6 +9,9 @@ import android.widget.ListView;
 
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.missionAdapter;
+import com.example.sy.a2018rememberhi.missionItem;
+
+import java.util.ArrayList;
 
 public class MissionActivity extends AppCompatActivity {
     ListView missionList;
@@ -22,11 +25,17 @@ public class MissionActivity extends AppCompatActivity {
         missionList = findViewById(R.id.mission_listview);
         adapter = new missionAdapter();
         missionList.setAdapter(adapter);
-
         addMission = findViewById(R.id.addMission);
 
-        adapter.addItem("꽃에 물주기", 0);
-        adapter.addItem("엑소 영상보기", 1);
+        ArrayList<missionItem> arrayList = new ArrayList<missionItem>();
+
+        missionItem item = new missionItem(0, "꽃에 물주기");
+        arrayList.add(item);
+
+         item = new missionItem(1, "내 아이돌 영상 보기");
+         arrayList.add(item);
+
+        adapter.setArray(arrayList);
 
         addMission.setOnClickListener(new View.OnClickListener() {
             @Override

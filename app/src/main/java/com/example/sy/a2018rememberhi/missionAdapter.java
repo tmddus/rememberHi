@@ -55,8 +55,7 @@ public class missionAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void addItem(String str, int bool){
-        missionItem i = new missionItem(bool, str);
-        missionItems.add(i);
+    public void setArray(ArrayList<missionItem> arr){
+     missionItems = arr;
     }
 }

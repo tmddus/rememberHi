@@ -53,7 +53,7 @@ public class CheckActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                         String str = fileSnapshot.getValue(String.class);
-                        checkListText.add(str);
+                        adapter.addItem(str);
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -61,7 +61,6 @@ public class CheckActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError error) {
                 }
             });
-        adapter.setArray(checkListText);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

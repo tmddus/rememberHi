@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TodayendList extends AppCompatActivity {
@@ -41,7 +42,6 @@ public class TodayendList extends AppCompatActivity {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/diary");
-
         adapter = new TodayListAdapter();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todayend_list);
@@ -51,6 +51,7 @@ public class TodayendList extends AppCompatActivity {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
+        final ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
 
         listview = findViewById(R.id.today_listview);
 
@@ -69,7 +70,10 @@ public class TodayendList extends AppCompatActivity {
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 Num++;
-                                adapter.addItem(String.valueOf(Num), diaryDTO.getDiaryDate()+"의 기록");
+                                item.setListTitle(diaryDTO.getDiaryDate()+"의 기록");
+                                item.setListNum(String.valueOf(Num));
+
+                                array.add(item);
                             }
                             adapter.notifyDataSetChanged();
                         }
@@ -84,6 +88,8 @@ public class TodayendList extends AppCompatActivity {
                 public void onCancelled (DatabaseError error){
                 }
             });
+
+        adapter.setArray(array);
 
         listview.setAdapter(adapter);
 
