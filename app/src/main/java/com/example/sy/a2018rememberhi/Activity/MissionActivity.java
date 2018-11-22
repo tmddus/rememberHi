@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,7 +28,9 @@ public class MissionActivity extends AppCompatActivity {
     ListView missionList;
     missionAdapter adapter;
     Button addMission;
+    missionItem item;
     int Num;
+    ArrayList<missionItem> arrayList = new ArrayList<missionItem>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,18 +41,8 @@ public class MissionActivity extends AppCompatActivity {
 
         missionList = findViewById(R.id.mission_listview);
         adapter = new missionAdapter();
-        missionList.setAdapter(adapter);
+
         addMission = findViewById(R.id.addMission);
-
-        ArrayList<missionItem> arrayList = new ArrayList<missionItem>();
-
-        missionItem item = new missionItem(0, "꽃에 물주기");
-        arrayList.add(item);
-
-         item = new missionItem(1, "내 아이돌 영상 보기");
-         arrayList.add(item);
-
-        adapter.setArray(arrayList);
 
         addMission.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +52,7 @@ public class MissionActivity extends AppCompatActivity {
                 finish();
             }
         });
-/*
+
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,10 +61,16 @@ public class MissionActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
                                 Num++;
-                                adapter.addItem(missionDTO.getStringTitle(), missionDTO.getMissionComple());
-                                adapter.notifyDataSetChanged();
+                                MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
+                                Log.e("log~~~~~~~~~",String.valueOf(Num));
+                                if(missionDTO.getMissionComple() == 1){
+                                    item = new missionItem(1, missionDTO.getStringTitle());
+                                }else{
+                                    item = new missionItem(0, missionDTO.getStringTitle());
+                                }
+                                arrayList.add(item);
+                                //adapter.notifyDataSetChanged();
                             }
                         }
                         @Override
@@ -85,7 +84,12 @@ public class MissionActivity extends AppCompatActivity {
             public void onCancelled (DatabaseError error){
             }
         });
-        */
+        adapter.setArray(arrayList);
+
+        adapter.notifyDataSetChanged();
+        missionList.setAdapter(adapter);
+
+
 
     }
 }
