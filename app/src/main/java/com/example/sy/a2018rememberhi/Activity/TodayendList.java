@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -37,14 +36,18 @@ public class TodayendList extends AppCompatActivity {
     DatabaseReference myRef;
     String loginId;
     int Num;
+<<<<<<< HEAD
     // ArrayList<TodayListItem> array;
     ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
+=======
+    ArrayList<TodayListItem> array;
+
+>>>>>>> 715e16abe638e8f651379ef4b03c7a60c1121add
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/diary");
-
         adapter = new TodayListAdapter();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todayend_list);
@@ -54,9 +57,13 @@ public class TodayendList extends AppCompatActivity {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
+<<<<<<< HEAD
                 //array = new ArrayList<TodayListItem>();
                 listview = findViewById(R.id.today_listview);
         adapter.notifyDataSetChanged();
+=======
+        array = new ArrayList<TodayListItem>();
+>>>>>>> 715e16abe638e8f651379ef4b03c7a60c1121add
 
         listview.setAdapter(adapter);
         item = new TodayListItem();
@@ -72,6 +79,7 @@ public class TodayendList extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
+<<<<<<< HEAD
                                 Log.e("log~~~~~~~~~",String.valueOf(Num));
                                 item = new TodayListItem();
                                 item.setListTitle(diaryDTO.getDiaryDate()+"의 기록");
@@ -79,14 +87,19 @@ public class TodayendList extends AppCompatActivity {
                                 Log.e("asd",item.getListNum());
                                 Log.e("asd_1",item.getListTitle());
                                 array.add(item);
+=======
+                                Num++;
+                                adapter.addItem(diaryDTO.getDiaryDate()+"의 기록", Num);
+                                adapter.notifyDataSetChanged();
+>>>>>>> 715e16abe638e8f651379ef4b03c7a60c1121add
                             }
                         }
-
                         @Override
                         public void onCancelled(DatabaseError error) {
                         }
                     });
                 }
+                return;
             }
             @Override
             public void onCancelled (DatabaseError error){
@@ -113,8 +126,11 @@ public class TodayendList extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         listview.setAdapter(adapter);
         adapter.setArray(array);
+=======
+>>>>>>> 715e16abe638e8f651379ef4b03c7a60c1121add
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

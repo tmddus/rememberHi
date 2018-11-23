@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_marginTop="10dp"
-        android:checked="false"
         android:textSize="18dp" />
 
     <TextView
