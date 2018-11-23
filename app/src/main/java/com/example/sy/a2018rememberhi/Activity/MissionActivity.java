@@ -1,6 +1,7 @@
 package com.example.sy.a2018rememberhi.Activity;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.sy.a2018rememberhi.Activity.Mission2Activity;
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
@@ -32,7 +34,6 @@ public class MissionActivity extends AppCompatActivity {
     ListView missionList;
     missionAdapter adapter;
     Button addMission;
-    missionItem item;
     int Num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +62,6 @@ public class MissionActivity extends AppCompatActivity {
         missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
 
                 return false;
             }
@@ -114,11 +113,25 @@ public class MissionActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 
         int index= info.position;
+//        final MissionDTO missiontest = (MissionDTO) adapter.getItem(index);
+//
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists()){
+//                    myRef.child(missiontest.getStringTitle()).set(null);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError error) { }
+//        });
+
 
         switch( item.getItemId() ){
-
             case R.id.delete:
                 adapter.delItem(index);
+                Log.e("index",String.valueOf(info.id));
+
                 Toast.makeText(this, " 삭제되었습니다.", Toast.LENGTH_SHORT).show();
 
                 //여기에 DB에서도 삭제하는 코드가 필요해용

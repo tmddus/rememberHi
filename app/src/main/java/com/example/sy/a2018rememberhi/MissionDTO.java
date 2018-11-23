@@ -4,7 +4,6 @@ public class MissionDTO {
     private String missionAlarm;
     private int missionComple;
     private String StringTitle;
-
     public MissionDTO() {}
 
     public MissionDTO(String StringTitle, String missionAlarm, int missionComple) {

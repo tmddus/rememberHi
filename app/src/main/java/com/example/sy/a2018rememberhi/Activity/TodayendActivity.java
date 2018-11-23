@@ -37,7 +37,7 @@ public class TodayendActivity extends AppCompatActivity {
     String key[] = new String[3];
     String getTime;
     int i;
-
+    int num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +46,8 @@ public class TodayendActivity extends AppCompatActivity {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/diary");
+
+        num = getIntent().getExtras().getInt("num");
 
         postBtn = findViewById(R.id.postBtn);
         todayEtc = findViewById(R.id.todayEtc);
@@ -124,7 +126,7 @@ public class TodayendActivity extends AppCompatActivity {
         });
     }
     private void writeNewPost() {
-       DiaryDTO diaryDTO = new DiaryDTO(todayEtc.getText().toString(),getTime,TodayFeeling,key[0],key[1],key[2],TodayWeather);
+       DiaryDTO diaryDTO = new DiaryDTO(todayEtc.getText().toString(),getTime,TodayFeeling,key[0],key[1],key[2],TodayWeather, num);
         myRef.push().setValue(diaryDTO);
     }
 

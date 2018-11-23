@@ -35,6 +35,7 @@ public class TodayendList extends AppCompatActivity {
     DatabaseReference myRef;
     String loginId;
     int Num;
+
     ArrayList<TodayListItem> array;
 
     @Override
@@ -51,11 +52,12 @@ public class TodayendList extends AppCompatActivity {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
-        array = new ArrayList<TodayListItem>();
 
         listview = findViewById(R.id.today_listview);
-        listview.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        array = new ArrayList<TodayListItem>();
 
+        listview.setAdapter(adapter);
         item = new TodayListItem();
 
         today.setText(getTime);
@@ -71,6 +73,7 @@ public class TodayendList extends AppCompatActivity {
                             Num = 0;
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
+                                item = new TodayListItem();
                                 Num++;
                                 adapter.addItem(diaryDTO.getDiaryDate()+"의 기록", Num);
                                 adapter.notifyDataSetChanged();
@@ -107,11 +110,13 @@ public class TodayendList extends AppCompatActivity {
 
             }
         });
-
+        listview.setAdapter(adapter);
+        adapter.setArray(array);
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TodayendList.this, TodayendActivity.class);
+                intent.putExtra("num", Num);
                 startActivity(intent);
             }
         });
