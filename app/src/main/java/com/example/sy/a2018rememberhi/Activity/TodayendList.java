@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.sy.a2018rememberhi.DTO.DiaryDTO;
+import com.example.sy.a2018rememberhi.DTO.DiaryDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.Adapter.TodayListAdapter;
 import com.example.sy.a2018rememberhi.TodayListItem;
@@ -36,7 +37,8 @@ public class TodayendList extends AppCompatActivity {
     DatabaseReference myRef;
     String loginId;
     int Num;
-    final ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
+    // ArrayList<TodayListItem> array;
+    ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
@@ -52,11 +54,13 @@ public class TodayendList extends AppCompatActivity {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
+                //array = new ArrayList<TodayListItem>();
+                listview = findViewById(R.id.today_listview);
+        adapter.notifyDataSetChanged();
 
-        listview = findViewById(R.id.today_listview);
         listview.setAdapter(adapter);
-
         item = new TodayListItem();
+
         today.setText(getTime);
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -67,7 +71,6 @@ public class TodayendList extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                                Num++;
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 Log.e("log~~~~~~~~~",String.valueOf(Num));
                                 item = new TodayListItem();
@@ -91,8 +94,6 @@ public class TodayendList extends AppCompatActivity {
         });
 
         adapter.notifyDataSetChanged();
-        adapter.setArray(array);
-        adapter.notifyDataSetChanged();
 
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,20 +102,20 @@ public class TodayendList extends AppCompatActivity {
                 Intent intent = new Intent(TodayendList.this, ViewTodayendActivity.class);
 
                 TodayListItem item = (TodayListItem) adapter.getItem(position); // 누른 게시글의 item 반환.
-                //item.getListNum(); item.setListTitle();
-                // item.getListNum();는 터치한 게시글의 숫자 item.setListTitle();는 터치한 게시글의 타이틀.
-                String title = item.getListTitle();
-                String today_content= item.getListNum();
+                //  item.getListNum(); item.setListTitle();
+                //  item.getListNum();는 터치한 게시글의 숫자 item.setListTitle();는 터치한 게시글의 타이틀.
+
+                String title="", today_content="";//여기 DB에서 받아와주세요~!
                 intent.putExtra("title", title);
                 intent.putExtra("content", today_content);
                 startActivity(intent);
 
             }
         });
-      
+
         listview.setAdapter(adapter);
         adapter.setArray(array);
-         writeBtn.setOnClickListener(new View.OnClickListener() {
+        writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TodayendList.this, TodayendActivity.class);
