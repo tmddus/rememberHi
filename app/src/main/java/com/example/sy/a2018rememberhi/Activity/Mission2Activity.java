@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,9 +49,8 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
             @Override
             public void onClick(View v) {
                 writeNewPost();
-                String MissionTxt = Mission.getText().toString();
                 Toast.makeText(getApplicationContext(), nHour+"시 " + nminute+"분에 알림 설정 되었습니다", Toast.LENGTH_SHORT);
-
+                Log.e("nHour",String.valueOf(nHour));
                 Intent intent = new Intent(Mission2Activity.this, MissionActivity.class);
                 startActivity(intent);
             }
@@ -63,7 +63,7 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
         nminute = minute;
     }
     private void writeNewPost() {
-        MissionDTO missionDTO = new MissionDTO(" "," ",0,Mission.getText().toString());
+        MissionDTO missionDTO = new MissionDTO(Mission.getText().toString(),String.valueOf(nHour)+ String.valueOf(nminute),1);
         myRef.push().setValue(missionDTO);
     }
 }

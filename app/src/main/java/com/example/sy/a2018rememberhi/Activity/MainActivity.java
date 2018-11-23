@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
             finish();
+        }else{
+            Toast.makeText(MainActivity.this, "로그인을 해주세요", Toast.LENGTH_SHORT).show();
         }
             loginInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
