@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         database = FirebaseDatabase.getInstance();
         int checkValue = 20, ValueCnt=100, valueResult=0; // checkValue는 check 된 것들을 모두 더한 값 ValueCnt는 로우 수
-        FirebaseMessaging.getInstance().subscribeToTopic("news");
         Button signUpBtn = findViewById(R.id.start_signUp);
         Button loginInBtn = findViewById(R.id.start_login);
 

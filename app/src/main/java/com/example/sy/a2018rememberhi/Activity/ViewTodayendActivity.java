@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.sy.a2018rememberhi.Adapter.TodayListAdapter;
-import com.example.sy.a2018rememberhi.DTO.DiaryDTO;
+import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.TodayListItem;
 import com.google.firebase.database.DataSnapshot;

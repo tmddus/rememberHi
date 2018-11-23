@@ -1,4 +1,4 @@
-package com.example.sy.a2018rememberhi.DTO;
+package com.example.sy.a2018rememberhi;
 
 public class DiaryDTO {
         private String diaryContent;

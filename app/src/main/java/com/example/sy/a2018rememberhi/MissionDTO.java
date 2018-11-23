@@ -1,10 +1,9 @@
-package com.example.sy.a2018rememberhi.DTO;
+package com.example.sy.a2018rememberhi;
 
 public class MissionDTO {
     private String missionAlarm;
     private int missionComple;
     private String StringTitle;
-
     public MissionDTO() {}
 
     public MissionDTO(String StringTitle, String missionAlarm, int missionComple) {

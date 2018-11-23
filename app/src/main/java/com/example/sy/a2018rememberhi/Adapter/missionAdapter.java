@@ -67,12 +67,6 @@ public class missionAdapter extends BaseAdapter {
         missionItems.add(item);
 
     }
-<<<<<<< HEAD
-    public void delItem(int position){
-        missionItems.remove(position);
-    }
-=======
     public void delItem(int position){missionItems.remove(position);}
     public  void clear(){missionItems.clear();}
->>>>>>> 08efb1e4f946001f1478763fec954c6b37bdbc01
 }

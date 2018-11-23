@@ -1,6 +1,7 @@
 package com.example.sy.a2018rememberhi.Activity;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +15,17 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.sy.a2018rememberhi.DTO.MissionDTO;
+import com.example.sy.a2018rememberhi.Activity.Mission2Activity;
+import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
+import com.example.sy.a2018rememberhi.missionA;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
 import com.example.sy.a2018rememberhi.missionItem;
 import java.util.ArrayList;
 
@@ -53,12 +57,15 @@ public class MissionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         registerForContextMenu(missionList);
+
 
         missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                  return false;
+
+                return false;
             }
         });
 
@@ -77,18 +84,10 @@ public class MissionActivity extends AppCompatActivity {
                                 MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
                                 Log.e("log~~~~~~~~~",String.valueOf(Num));
                                 if(missionDTO.getMissionComple() == 1){
-<<<<<<< HEAD
-                                    item = new missionItem(1, missionDTO.getStringTitle());
-                                }else{
-                                    item = new missionItem(0, missionDTO.getStringTitle());
-                                }
-                                arrayList.add(item);
-=======
                                     check=1;
                                 }else{ check=0;}
                                 adapter.addItem(check, missionDTO.getStringTitle());
                                 adapter.notifyDataSetChanged();
->>>>>>> 08efb1e4f946001f1478763fec954c6b37bdbc01
                             }
                         }
                         @Override
@@ -101,14 +100,7 @@ public class MissionActivity extends AppCompatActivity {
             public void onCancelled (DatabaseError error){
             }
         });
-<<<<<<< HEAD
-        adapter.setArray(arrayList);
-        adapter.notifyDataSetChanged();
         missionList.setAdapter(adapter);
-
-=======
-        missionList.setAdapter(adapter);
->>>>>>> 08efb1e4f946001f1478763fec954c6b37bdbc01
     }
 
     @Override
@@ -123,16 +115,33 @@ public class MissionActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 
         int index= info.position;
+        final MissionDTO missiontest = (MissionDTO) adapter.getItem(index);
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    myRef.child(missiontest.getStringTitle()).set(null);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) { }
+        });
+
 
         switch( item.getItemId() ){
             case R.id.delete:
                 adapter.delItem(index);
+                Log.e("index",String.valueOf(info.id));
+
                 Toast.makeText(this, " 삭제되었습니다.", Toast.LENGTH_SHORT).show();
 
                 //여기에 DB에서도 삭제하는 코드가 필요해용
 
                 adapter.notifyDataSetChanged();
                 break;
+
+
             case R.id.missionCh:
 
                 if( ((missionItem)adapter.getItem(index)).getSuccess() == 1){
@@ -148,18 +157,4 @@ public class MissionActivity extends AppCompatActivity {
         }
         return true;
     };
-    public void DB(){
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                    MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
-    }
 }

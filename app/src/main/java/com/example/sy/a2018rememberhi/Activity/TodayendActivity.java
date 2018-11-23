@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sy.a2018rememberhi.DTO.DiaryDTO;
+import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
