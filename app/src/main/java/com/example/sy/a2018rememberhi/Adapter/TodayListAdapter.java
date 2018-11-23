@@ -58,4 +58,11 @@ public class TodayListAdapter extends BaseAdapter {
     }
 
     public void setArray(ArrayList<TodayListItem> arr){ array = arr; }
+    public void addItem(String str, int i){
+        TodayListItem item = new TodayListItem();
+        item.setListTitle(str);
+        item.setListNum(String.valueOf(i));
+
+        array.add(item);
+    }
 }

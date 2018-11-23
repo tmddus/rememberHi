@@ -35,6 +35,8 @@ public class TodayendList extends AppCompatActivity {
     DatabaseReference myRef;
     String loginId;
     int Num;
+    ArrayList<TodayListItem> array;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
@@ -49,7 +51,7 @@ public class TodayendList extends AppCompatActivity {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
-        final ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
+         array = new ArrayList<TodayListItem>();
 
         listview = findViewById(R.id.today_listview);
         listview.setAdapter(adapter);
@@ -68,9 +70,8 @@ public class TodayendList extends AppCompatActivity {
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 Num++;
-                                item.setListTitle(diaryDTO.getDiaryDate()+"의 기록");
-                                item.setListNum(String.valueOf(Num));
-                                array.add(item);
+                                adapter.addItem(diaryDTO.getDiaryDate()+"의 기록", Num);
+                                adapter.notifyDataSetChanged();
                             }
                         }
                         @Override
@@ -85,8 +86,6 @@ public class TodayendList extends AppCompatActivity {
             }
         });
 
-        adapter.notifyDataSetChanged();
-        adapter.setArray(array);
         adapter.notifyDataSetChanged();
 
 
