@@ -41,6 +41,7 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
         Mission = findViewById(R.id.todayCom);
         alarmTime = findViewById(R.id.timePicker);
 
+
         alarmTime.setOnTimeChangedListener(this);
 
 
@@ -51,8 +52,9 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
                 writeNewPost();
                 Toast.makeText(getApplicationContext(), nHour+"시 " + nminute+"분에 알림 설정 되었습니다", Toast.LENGTH_SHORT);
                 Log.e("nHour",String.valueOf(nHour));
-                Intent intent = new Intent(Mission2Activity.this, MissionActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(Mission2Activity.this, MissionActivity.class);
+                startActivity(intent);*/
+                finish();
             }
         });
 
@@ -63,7 +65,7 @@ public class Mission2Activity extends AppCompatActivity implements TimePicker.On
         nminute = minute;
     }
     private void writeNewPost() {
-        MissionDTO missionDTO = new MissionDTO(Mission.getText().toString(),String.valueOf(nHour)+ String.valueOf(nminute),1);
+        MissionDTO missionDTO = new MissionDTO(Mission.getText().toString(),String.valueOf(nHour)+ String.valueOf(nminute),0);
         myRef.push().setValue(missionDTO);
     }
 }
