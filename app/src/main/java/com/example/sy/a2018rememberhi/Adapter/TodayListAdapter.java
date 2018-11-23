@@ -65,4 +65,5 @@ public class TodayListAdapter extends BaseAdapter {
 
         array.add(item);
     }
+    public void clear(){array.clear();}
 }
