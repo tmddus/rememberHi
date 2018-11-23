@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +27,7 @@
         <activity android:name=".Activity.TodayendList" />
         <activity android:name=".Activity.ViewTodayendActivity" />
         <activity android:name=".Activity.Mission2Activity"></activity>
+
     </application>
 
 </manifest>

@@ -52,7 +52,7 @@ public class CheckActivity extends AppCompatActivity {
                         String str = fileSnapshot.getValue(String.class);
                         adapter.addItem(str);
                     }
-                    adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
                 }
                 @Override
                 public void onCancelled(DatabaseError error) {
@@ -70,9 +70,10 @@ public class CheckActivity extends AppCompatActivity {
                 taskMap.put("userCheckList", Checks);
                 myRef.child("User").child(loginId).child("info").updateChildren(taskMap);
 
+                Log.e("log 직음","finish");
+
                 Intent intent = new Intent(CheckActivity.this, ProfileActivity.class);
                 startActivity(intent);
-
                 finish();
             }
         });
