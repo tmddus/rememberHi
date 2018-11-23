@@ -52,7 +52,7 @@ public class CheckActivity extends AppCompatActivity {
                         String str = fileSnapshot.getValue(String.class);
                         adapter.addItem(str);
                     }
-                    adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
                 }
                 @Override
                 public void onCancelled(DatabaseError error) {
@@ -74,7 +74,6 @@ public class CheckActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(CheckActivity.this, ProfileActivity.class);
                 startActivity(intent);
-
                 finish();
             }
         });

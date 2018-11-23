@@ -36,7 +36,12 @@ public class TodayendList extends AppCompatActivity {
     DatabaseReference myRef;
     String loginId;
     int Num;
+<<<<<<< HEAD
+    ArrayList<TodayListItem> array;
+
+=======
     ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
+>>>>>>> e44a538bac445b97efcb204329df9667cdea24ec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
@@ -52,6 +57,10 @@ public class TodayendList extends AppCompatActivity {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         String getTime = sdf.format(date);
+<<<<<<< HEAD
+         array = new ArrayList<TodayListItem>();
+=======
+>>>>>>> e44a538bac445b97efcb204329df9667cdea24ec
 
         listview = findViewById(R.id.today_listview);
         listview.setAdapter(adapter);
@@ -68,6 +77,10 @@ public class TodayendList extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 Num++;
+<<<<<<< HEAD
+                                adapter.addItem(diaryDTO.getDiaryDate()+"의 기록", Num);
+                                adapter.notifyDataSetChanged();
+=======
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 Log.e("log~~~~~~~~~",String.valueOf(Num));
                                 item = new TodayListItem();
@@ -76,6 +89,7 @@ public class TodayendList extends AppCompatActivity {
                                 Log.e("asd",item.getListNum());
                                 Log.e("asd_1",item.getListTitle());
                                 array.add(item);
+>>>>>>> e44a538bac445b97efcb204329df9667cdea24ec
                             }
                         }
 
@@ -90,8 +104,6 @@ public class TodayendList extends AppCompatActivity {
             }
         });
 
-        adapter.notifyDataSetChanged();
-        adapter.setArray(array);
         adapter.notifyDataSetChanged();
 
 
