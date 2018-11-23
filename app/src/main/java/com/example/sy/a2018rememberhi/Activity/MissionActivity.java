@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.DTO.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
@@ -52,6 +56,20 @@ public class MissionActivity extends AppCompatActivity {
             }
         });
 
+        registerForContextMenu(missionList);
+
+
+        missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+
+                return false;
+            }
+        });
+
+
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -89,4 +107,45 @@ public class MissionActivity extends AppCompatActivity {
         missionList.setAdapter(adapter);
 
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.context_menu, menu);
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+
+        int index= info.position;
+
+        switch( item.getItemId() ){
+
+            case R.id.delete:
+                adapter.delItem(index);
+                Toast.makeText(this, " 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+
+                //여기에 DB에서도 삭제하는 코드가 필요해용
+
+                adapter.notifyDataSetChanged();
+                break;
+
+
+            case R.id.missionCh:
+
+                if( ((missionItem)adapter.getItem(index)).getSuccess() == 1){
+                    Toast.makeText(this, "이미 성공한 미션입니다", Toast.LENGTH_SHORT).show();
+                }else{
+                    //여기두 DB값 설정하는 부분 필요행
+
+                    ((missionItem)adapter.getItem(index)).setSuccess(1);
+                    Toast.makeText(this, "미션 완료!", Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
+                }
+                break;
+        }
+        return true;
+    };
 }
