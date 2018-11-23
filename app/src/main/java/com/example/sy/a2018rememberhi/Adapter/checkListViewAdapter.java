@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.example.sy.a2018rememberhi.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class checkListViewAdapter extends BaseAdapter {
