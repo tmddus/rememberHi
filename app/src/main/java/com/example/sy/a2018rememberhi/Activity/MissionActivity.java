@@ -55,17 +55,12 @@ public class MissionActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         registerForContextMenu(missionList);
-
 
         missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-                return false;
+                  return false;
             }
         });
 
@@ -87,7 +82,6 @@ public class MissionActivity extends AppCompatActivity {
                                     item = new missionItem(0, missionDTO.getStringTitle());
                                 }
                                 arrayList.add(item);
-                                //adapter.notifyDataSetChanged();
                             }
                         }
                         @Override
@@ -102,7 +96,6 @@ public class MissionActivity extends AppCompatActivity {
             }
         });
         adapter.setArray(arrayList);
-
         adapter.notifyDataSetChanged();
         missionList.setAdapter(adapter);
 
@@ -122,7 +115,6 @@ public class MissionActivity extends AppCompatActivity {
         int index= info.position;
 
         switch( item.getItemId() ){
-
             case R.id.delete:
                 adapter.delItem(index);
                 Toast.makeText(this, " 삭제되었습니다.", Toast.LENGTH_SHORT).show();
@@ -131,8 +123,6 @@ public class MissionActivity extends AppCompatActivity {
 
                 adapter.notifyDataSetChanged();
                 break;
-
-
             case R.id.missionCh:
 
                 if( ((missionItem)adapter.getItem(index)).getSuccess() == 1){
@@ -148,4 +138,18 @@ public class MissionActivity extends AppCompatActivity {
         }
         return true;
     };
+    public void DB(){
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                    MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
 }

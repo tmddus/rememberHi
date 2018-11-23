@@ -36,7 +36,7 @@ public class TodayendList extends AppCompatActivity {
     DatabaseReference myRef;
     String loginId;
     int Num;
-    ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
+    final ArrayList<TodayListItem> array = new ArrayList<TodayListItem>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
@@ -101,10 +101,10 @@ public class TodayendList extends AppCompatActivity {
                 Intent intent = new Intent(TodayendList.this, ViewTodayendActivity.class);
 
                 TodayListItem item = (TodayListItem) adapter.getItem(position); // 누른 게시글의 item 반환.
-                //  item.getListNum(); item.setListTitle();
-                //  item.getListNum();는 터치한 게시글의 숫자 item.setListTitle();는 터치한 게시글의 타이틀.
-
-                String title="", today_content="";//여기 DB에서 받아와주세요~!
+                //item.getListNum(); item.setListTitle();
+                // item.getListNum();는 터치한 게시글의 숫자 item.setListTitle();는 터치한 게시글의 타이틀.
+                String title = item.getListTitle();
+                String today_content= item.getListNum();
                 intent.putExtra("title", title);
                 intent.putExtra("content", today_content);
                 startActivity(intent);

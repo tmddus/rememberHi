@@ -61,5 +61,7 @@ public class missionAdapter extends BaseAdapter {
     public void setArray(ArrayList<missionItem> arr){
      missionItems = arr;
     }
-    public void delItem(int position){missionItems.remove(position);}
+    public void delItem(int position){
+        missionItems.remove(position);
+    }
 }
