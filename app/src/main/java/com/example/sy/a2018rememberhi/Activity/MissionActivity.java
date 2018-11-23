@@ -19,7 +19,6 @@ import com.example.sy.a2018rememberhi.Activity.Mission2Activity;
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
-import com.example.sy.a2018rememberhi.missionA;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +34,6 @@ public class MissionActivity extends AppCompatActivity {
     ListView missionList;
     missionAdapter adapter;
     Button addMission;
-    missionItem item;
     int Num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,18 +113,18 @@ public class MissionActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 
         int index= info.position;
-        final MissionDTO missiontest = (MissionDTO) adapter.getItem(index);
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    myRef.child(missiontest.getStringTitle()).set(null);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError error) { }
-        });
+//        final MissionDTO missiontest = (MissionDTO) adapter.getItem(index);
+//
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists()){
+//                    myRef.child(missiontest.getStringTitle()).set(null);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError error) { }
+//        });
 
 
         switch( item.getItemId() ){
