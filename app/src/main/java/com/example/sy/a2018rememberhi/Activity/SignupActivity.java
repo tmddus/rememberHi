@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.R;
-import com.example.sy.a2018rememberhi.UserDTO;
+import com.example.sy.a2018rememberhi.DTO.UserDTO;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

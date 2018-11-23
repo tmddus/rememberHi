@@ -1,4 +1,4 @@
-package com.example.sy.a2018rememberhi;
+package com.example.sy.a2018rememberhi.DTO;
 
 import com.google.firebase.database.Exclude;
 
