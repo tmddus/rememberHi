@@ -96,7 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.how_today:
-                    intent = new Intent(ProfileActivity.this,TodayendList.class);
+                    intent = new Intent(ProfileActivity.this,ViewTodayendActivity.TodayendList.class);
                     startActivity(intent);
                     break;
                 case R.id.homecommu:

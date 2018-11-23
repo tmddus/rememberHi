@@ -33,7 +33,6 @@ public class MissionActivity extends AppCompatActivity {
     Button addMission;
     missionItem item;
     int Num;
-    ArrayList<missionItem> arrayList = new ArrayList<missionItem>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +51,6 @@ public class MissionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MissionActivity.this, Mission2Activity.class);
                 startActivity(intent);
-                finish();
             }
         });
         registerForContextMenu(missionList);
@@ -72,21 +70,29 @@ public class MissionActivity extends AppCompatActivity {
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            adapter.clear();
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                int check;
                                 Num++;
                                 MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
                                 Log.e("log~~~~~~~~~",String.valueOf(Num));
                                 if(missionDTO.getMissionComple() == 1){
+<<<<<<< HEAD
                                     item = new missionItem(1, missionDTO.getStringTitle());
                                 }else{
                                     item = new missionItem(0, missionDTO.getStringTitle());
                                 }
                                 arrayList.add(item);
+=======
+                                    check=1;
+                                }else{ check=0;}
+                                adapter.addItem(check, missionDTO.getStringTitle());
+                                adapter.notifyDataSetChanged();
+>>>>>>> 08efb1e4f946001f1478763fec954c6b37bdbc01
                             }
                         }
                         @Override
-                        public void onCancelled(DatabaseError error) {
-                        }
+                        public void onCancelled(DatabaseError error) { }
                     });
                 }
                 return;
@@ -95,10 +101,14 @@ public class MissionActivity extends AppCompatActivity {
             public void onCancelled (DatabaseError error){
             }
         });
+<<<<<<< HEAD
         adapter.setArray(arrayList);
         adapter.notifyDataSetChanged();
         missionList.setAdapter(adapter);
 
+=======
+        missionList.setAdapter(adapter);
+>>>>>>> 08efb1e4f946001f1478763fec954c6b37bdbc01
     }
 
     @Override
