@@ -131,22 +131,15 @@ public class MissionActivity extends AppCompatActivity {
             case R.id.delete:
                 adapter.delItem(index);
                 Log.e("index",String.valueOf(info.id));
-
                 Toast.makeText(this, " 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-
                 //여기에 DB에서도 삭제하는 코드가 필요해용
-
                 adapter.notifyDataSetChanged();
                 break;
-
-
             case R.id.missionCh:
-
                 if( ((missionItem)adapter.getItem(index)).getSuccess() == 1){
                     Toast.makeText(this, "이미 성공한 미션입니다", Toast.LENGTH_SHORT).show();
                 }else{
                     //여기두 DB값 설정하는 부분 필요행
-
                     ((missionItem)adapter.getItem(index)).setSuccess(1);
                     Toast.makeText(this, "미션 완료!", Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();

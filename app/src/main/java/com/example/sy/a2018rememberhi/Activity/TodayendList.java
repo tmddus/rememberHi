@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -30,7 +31,7 @@ public class TodayendList extends AppCompatActivity {
     Button writeBtn;
     ListView listview;
     TodayListAdapter adapter;
-    TodayListItem item; //  item 변수에 DB에 있는 값 담아서 for 문으로 보내깅!!
+    TodayListItem item;
     FirebaseDatabase database  = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
     String loginId;
@@ -75,12 +76,13 @@ public class TodayendList extends AppCompatActivity {
                                 DiaryDTO diaryDTO = fileSnapshot.getValue(DiaryDTO.class);
                                 item = new TodayListItem();
                                 Num++;
-                                adapter.addItem(diaryDTO.getDiaryDate()+"의 기록", Num);
+                                adapter.addItem(diaryDTO.getDiaryDate(), Num);
                                 adapter.notifyDataSetChanged();
                             }
                         }
                         @Override
                         public void onCancelled(DatabaseError error) {
+
                         }
                     });
                 }
@@ -98,16 +100,10 @@ public class TodayendList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(TodayendList.this, ViewTodayendActivity.class);
-
                 TodayListItem item = (TodayListItem) adapter.getItem(position); // 누른 게시글의 item 반환.
-                //  item.getListNum(); item.setListTitle();
-                //  item.getListNum();는 터치한 게시글의 숫자 item.setListTitle();는 터치한 게시글의 타이틀.
-
-                String title="", today_content="";//여기 DB에서 받아와주세요~!
+                String title = item.getListTitle();//여기 DB에서 받아와주세요~!
                 intent.putExtra("title", title);
-                intent.putExtra("content", today_content);
                 startActivity(intent);
-
             }
         });
         listview.setAdapter(adapter);
@@ -116,7 +112,6 @@ public class TodayendList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TodayendList.this, TodayendActivity.class);
-                intent.putExtra("num", Num);
                 startActivity(intent);
             }
         });
