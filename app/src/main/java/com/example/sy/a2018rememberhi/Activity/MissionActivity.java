@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.Activity.Mission2Activity;
+import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
@@ -34,7 +35,7 @@ public class MissionActivity extends AppCompatActivity {
     ListView missionList;
     missionAdapter adapter;
     Button addMission;
-    int Num;
+    int index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,6 @@ public class MissionActivity extends AppCompatActivity {
         missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
                 return false;
             }
         });
@@ -78,9 +78,7 @@ public class MissionActivity extends AppCompatActivity {
                             adapter.clear();
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 int check;
-                                Num++;
                                 MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
-                                Log.e("log~~~~~~~~~",String.valueOf(Num));
                                 if(missionDTO.getMissionComple() == 1){
                                     check=1;
                                 }else{ check=0;}
@@ -111,21 +109,22 @@ public class MissionActivity extends AppCompatActivity {
 
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-
-        int index= info.position;
-//        final MissionDTO missiontest = (MissionDTO) adapter.getItem(index);
-//
-//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        index= info.position;
+        Log.e("info",String.valueOf(info));
+        Log.e("info.position",String.valueOf(index));
+//        myRef.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists()){
-//                    myRef.child(missiontest.getStringTitle()).set(null);
+//                for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+//                    MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
+//                    if(missionDTO.getStringTitle().equals((missionItem)adapter.getItem(index))){
+//                        Log.e("if무ㅡㄴ",missionDTO.getStringTitle());
+//                    }
 //                }
 //            }
 //            @Override
 //            public void onCancelled(DatabaseError error) { }
 //        });
-
 
         switch( item.getItemId() ){
             case R.id.delete:
