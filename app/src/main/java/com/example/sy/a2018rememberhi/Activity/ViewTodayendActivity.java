@@ -34,13 +34,15 @@ public class ViewTodayendActivity extends AppCompatActivity {
     DatabaseReference myRef;
     String loginId;
     DiaryDTO diaryDTO;
-    String weather;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_todayend);
+
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
+        Log.e("id",loginId);
         inputTitle = getIntent().getExtras().getString("title");
 
         myRef = database.getInstance().getReference("User/"+loginId+"/diary");
@@ -48,20 +50,24 @@ public class ViewTodayendActivity extends AppCompatActivity {
         title = findViewById(R.id.title);
         script = findViewById(R.id.script);
 
-        myRef.child(loginId).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child(inputTitle).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 diaryDTO = dataSnapshot.getValue(DiaryDTO.class);
-                weather = diaryDTO.getDiaryWeather();
+                inputScript = "오늘의 날씨는 "+ diaryDTO.getDiaryWeather() + "이고, 오늘의 기분은 " + diaryDTO.getDiaryFeel()+ "입니다."
+                                +" 또한 오늘의 단어는 "+ diaryDTO.getDiaryKey1() + ", "+ diaryDTO.getDiaryKey2() + ", "+ diaryDTO.getDiaryKey3() + "입니다.";
+                if(diaryDTO.getDiaryContent() != null){
+                    inputScript += " 오늘의 한마디는 "+ diaryDTO.getDiaryContent()+"입니다.";
+                }
+                script.setText(inputScript);
+                Log.e("sfssfs",diaryDTO.getDiaryWeather());
             }
             @Override
-            public void onCancelled (DatabaseError error){
+            public void onCancelled(DatabaseError error) {
 
             }
         });
-
-        //inputScript = "오늘의 날씨는 "+ weather + "이고, 오늘의 기분은" ;
         title.setText(inputTitle);
-        script.setText(inputScript);
+
     }
 }
