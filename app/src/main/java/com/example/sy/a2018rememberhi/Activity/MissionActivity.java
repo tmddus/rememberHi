@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -21,6 +22,7 @@ import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,6 +67,17 @@ public class MissionActivity extends AppCompatActivity {
         missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(), " " + position , Toast.LENGTH_LONG).show();
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.e("dddddddd",String.valueOf(dataSnapshot.getValue()));
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 return false;
             }
 
@@ -118,23 +131,7 @@ public class MissionActivity extends AppCompatActivity {
     }
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        index = info.position;
-        myRef.addValueEventListener(new ValueEventListener() {
-           @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                    MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
-                    if(missionDTO.getStringTitle().equals(items.get(index))){
-                        key = fileSnapshot.getKey();
-                        Log.e("key",key);
-                        Log.e("items",items.get(index));
-                        return;
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError error) { }
-        });
+
         switch(item.getItemId()){
             case R.id.delete:
                 adapter.delItem(index);
