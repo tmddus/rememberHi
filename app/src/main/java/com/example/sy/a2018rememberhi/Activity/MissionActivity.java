@@ -39,12 +39,13 @@ public class MissionActivity extends AppCompatActivity {
     Button addMission;
     int index;
     String key;
+    String loginId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission);
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-        String loginId = auto.getString("inputId",null);
+        loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/mission");
 
         missionList = findViewById(R.id.mission_listview);
@@ -64,8 +65,6 @@ public class MissionActivity extends AppCompatActivity {
         missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String del_name = items.get(position);
-                Log.e("del_name",del_name);
                 return false;
             }
 
@@ -110,9 +109,9 @@ public class MissionActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
 
     }
-    public boolean deleteData(String key){
-        myRef.put("/id_list/" + ID, postValues);
-        return true;
+    public void deleteData(String key){
+        DatabaseReference delete = database.getInstance().getReference("User/"+loginId+"/mission/"+key);
+        delete.setValue(null);
     }
     public boolean nodifyData(String key){
         return true;
@@ -128,7 +127,8 @@ public class MissionActivity extends AppCompatActivity {
                     if(missionDTO.getStringTitle().equals(items.get(index))){
                         key = fileSnapshot.getKey();
                         Log.e("key",key);
-                        break;
+                        Log.e("items",items.get(index));
+                        return;
                     }
                 }
             }
