@@ -5,7 +5,6 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -22,7 +21,7 @@ import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
-import com.google.firebase.FirebaseError;
+import com.example.sy.a2018rememberhi.TodayListItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +35,8 @@ public class MissionActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
     ListView missionList;
-    private ArrayList<String> items = null;
+    ArrayList<missionItem> array;
+    missionItem item;
     missionAdapter adapter;
     Button addMission;
     int index;
@@ -50,6 +50,9 @@ public class MissionActivity extends AppCompatActivity {
         loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/mission");
 
+
+        array = new ArrayList<missionItem>();
+        item = new missionItem();
         missionList = findViewById(R.id.mission_listview);
         adapter = new missionAdapter();
 
@@ -67,17 +70,6 @@ public class MissionActivity extends AppCompatActivity {
         missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), " " + position , Toast.LENGTH_LONG).show();
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Log.e("dddddddd",String.valueOf(dataSnapshot.getValue()));
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
                 return false;
             }
 
@@ -90,11 +82,10 @@ public class MissionActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             adapter.clear();
-                            items = new ArrayList<String>();
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                                item = new missionItem();
                                 int check;
                                 MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
-                                items.add(missionDTO.getStringTitle());
                                 if(missionDTO.getMissionComple() == 1){
                                     check=1;
                                 }else{ check=0;}
@@ -106,6 +97,7 @@ public class MissionActivity extends AppCompatActivity {
                         public void onCancelled(DatabaseError error) { }
                     });
                 }
+
                 return;
             }
             @Override
@@ -125,19 +117,22 @@ public class MissionActivity extends AppCompatActivity {
     public void deleteData(String key){
         DatabaseReference delete = database.getInstance().getReference("User/"+loginId+"/mission/"+key);
         delete.setValue(null);
+        Toast.makeText(this, " 삭제 뀨잉.", Toast.LENGTH_SHORT).show();
     }
     public boolean nodifyData(String key){
         return true;
     }
     public boolean onContextItemSelected(MenuItem item) {
+
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        index = info.position;
+
+        missionItem items = (missionItem) adapter.getItem(index);
+        String title = items.getMissionText();
 
         switch(item.getItemId()){
             case R.id.delete:
-                adapter.delItem(index);
-                Log.e("index",String.valueOf(info.id));
                 Toast.makeText(this, " 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                deleteData(key);
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.missionCh:
@@ -153,4 +148,16 @@ public class MissionActivity extends AppCompatActivity {
         }
         return true;
     };
-}
+    ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                    String key = fileSnapshot.getKey();
+                    myRef.child(key).getKey();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) { }
+        };
+    }

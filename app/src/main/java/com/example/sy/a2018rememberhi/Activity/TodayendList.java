@@ -101,7 +101,7 @@ public class TodayendList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(TodayendList.this, ViewTodayendActivity.class);
                 TodayListItem item = (TodayListItem) adapter.getItem(position); // 누른 게시글의 item 반환.
-                String title = item.getListTitle();//여기 DB에서 받아와주세요~!
+                String title = item.getListTitle();
                 intent.putExtra("title", title);
                 startActivity(intent);
             }
