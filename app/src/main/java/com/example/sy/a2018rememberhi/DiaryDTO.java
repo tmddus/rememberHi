@@ -8,10 +8,8 @@ public class DiaryDTO {
         private String diaryKey2;
         private String diaryKey3;
         private String diaryWeather;
-        private int num;
         public DiaryDTO() { }
-        public DiaryDTO(String diaryContent, String diaryDate, String diaryFeel, String diaryKey1, String diaryKey2,
-                 String diaryKey3, String diaryWeather , int num) {
+        public DiaryDTO(String diaryContent, String diaryDate, String diaryFeel, String diaryKey1, String diaryKey2, String diaryKey3, String diaryWeather) {
             this.diaryContent = diaryContent;
             this.diaryDate = diaryDate;
             this.diaryFeel = diaryFeel;
@@ -19,7 +17,6 @@ public class DiaryDTO {
             this.diaryKey2 = diaryKey2;
             this.diaryKey3 = diaryKey3;
             this.diaryWeather = diaryWeather;
-            this.num = num;
         }
 
         public String getDiaryContent() {
@@ -64,12 +61,6 @@ public class DiaryDTO {
         public void setDiaryWeather(String diaryWeather) {
             this.diaryWeather = diaryWeather;
         }
-        public int getNum() {
-        return num;
-    }
-        public void setNum(int num) {
-        this.num = num;
-    }
 
 
 }

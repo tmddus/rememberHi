@@ -2,6 +2,7 @@ package com.example.sy.a2018rememberhi.Activity;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.sy.a2018rememberhi.Activity.Mission2Activity;
+import com.example.sy.a2018rememberhi.DiaryDTO;
 import com.example.sy.a2018rememberhi.MissionDTO;
 import com.example.sy.a2018rememberhi.R;
 import com.example.sy.a2018rememberhi.Adapter.missionAdapter;
@@ -32,15 +34,18 @@ public class MissionActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
     ListView missionList;
+    private ArrayList<String> items = null;
     missionAdapter adapter;
     Button addMission;
-    int Num;
+    int index;
+    String key;
+    String loginId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission);
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-        String loginId = auto.getString("inputId",null);
+        loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/mission");
 
         missionList = findViewById(R.id.mission_listview);
@@ -57,17 +62,13 @@ public class MissionActivity extends AppCompatActivity {
         });
 
         registerForContextMenu(missionList);
-
-
         missionList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
                 return false;
             }
+
         });
-
-
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -76,11 +77,11 @@ public class MissionActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             adapter.clear();
+                            items = new ArrayList<String>();
                             for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
                                 int check;
-                                Num++;
                                 MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
-                                Log.e("log~~~~~~~~~",String.valueOf(Num));
+                                items.add(missionDTO.getStringTitle());
                                 if(missionDTO.getMissionComple() == 1){
                                     check=1;
                                 }else{ check=0;}
@@ -108,45 +109,45 @@ public class MissionActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
 
     }
-
+    public void deleteData(String key){
+        DatabaseReference delete = database.getInstance().getReference("User/"+loginId+"/mission/"+key);
+        delete.setValue(null);
+    }
+    public boolean nodifyData(String key){
+        return true;
+    }
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-
-        int index= info.position;
-//        final MissionDTO missiontest = (MissionDTO) adapter.getItem(index);
-//
-//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists()){
-//                    myRef.child(missiontest.getStringTitle()).set(null);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError error) { }
-//        });
-
-
-        switch( item.getItemId() ){
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        index = info.position;
+        myRef.addValueEventListener(new ValueEventListener() {
+           @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
+                    MissionDTO missionDTO = fileSnapshot.getValue(MissionDTO.class);
+                    if(missionDTO.getStringTitle().equals(items.get(index))){
+                        key = fileSnapshot.getKey();
+                        Log.e("key",key);
+                        Log.e("items",items.get(index));
+                        return;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) { }
+        });
+        switch(item.getItemId()){
             case R.id.delete:
                 adapter.delItem(index);
                 Log.e("index",String.valueOf(info.id));
-
                 Toast.makeText(this, " 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-
-                //여기에 DB에서도 삭제하는 코드가 필요해용
-
+                deleteData(key);
                 adapter.notifyDataSetChanged();
                 break;
-
-
             case R.id.missionCh:
-
                 if( ((missionItem)adapter.getItem(index)).getSuccess() == 1){
                     Toast.makeText(this, "이미 성공한 미션입니다", Toast.LENGTH_SHORT).show();
                 }else{
-                    //여기두 DB값 설정하는 부분 필요행
-
+                    nodifyData(key);
                     ((missionItem)adapter.getItem(index)).setSuccess(1);
                     Toast.makeText(this, "미션 완료!", Toast.LENGTH_SHORT).show();
                     adapter.notifyDataSetChanged();
