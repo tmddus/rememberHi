@@ -1,6 +1,7 @@
 package com.example.sy.a2018rememberhi.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,12 +33,10 @@ public class TodayendActivity extends AppCompatActivity {
     Spinner spinnerWeather, spinnerTension;
     ArrayAdapter spinnerWeatherAdap, spinnerTensionAdap;
     TextView key1, key2, key3, key4, key5;
-    public static int Today_Num = 0;
 
     String key[] = new String[3];
     String getTime;
     int i;
-    int num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +45,6 @@ public class TodayendActivity extends AppCompatActivity {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String loginId = auto.getString("inputId",null);
         myRef = database.getInstance().getReference("User/"+loginId+"/diary");
-
-        num = getIntent().getExtras().getInt("num");
-
         postBtn = findViewById(R.id.postBtn);
         todayEtc = findViewById(R.id.todayEtc);
         key1 = findViewById(R.id.key1);
@@ -62,12 +58,11 @@ public class TodayendActivity extends AppCompatActivity {
         key3.setOnClickListener(mClickListener);
         key4.setOnClickListener(mClickListener);
         key5.setOnClickListener(mClickListener);
+
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
         getTime = sdf.format(date);
-        //승연아 병합 충돌 일어나면 swith를 살려줘 코드 가독성 보기 좋게 고쳤ㄷ어 사실 뭐가 더 가독성 있는지는 모르겠지만,,,,,,,,,,,,,, 넘 힘들다.
-
         final ArrayList<String> weather = new ArrayList<>();
         final ArrayList<String> tension = new ArrayList<>();
 
@@ -121,13 +116,14 @@ public class TodayendActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 writeNewPost();
-                finish();
+                Intent intent = new Intent(TodayendActivity.this, TodayendList.class);
+                startActivity(intent);
             }
         });
     }
     private void writeNewPost() {
-       DiaryDTO diaryDTO = new DiaryDTO(todayEtc.getText().toString(),getTime,TodayFeeling,key[0],key[1],key[2],TodayWeather, num);
-        myRef.push().setValue(diaryDTO);
+       DiaryDTO diaryDTO = new DiaryDTO(todayEtc.getText().toString(),getTime,TodayFeeling,key[0],key[1],key[2],TodayWeather);
+       myRef.child(getTime).setValue(diaryDTO);
     }
 
     TextView.OnClickListener mClickListener = new View.OnClickListener() {
